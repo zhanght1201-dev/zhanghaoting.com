@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="article-page">
+  <header class="article-header">
+    <a class="back-link" href="/{{ project.section }}/">← 返回{{ '学校与科研' if project.section == 'school' else '职业与实践' }}</a>
+    <p class="eyebrow">{{ project.categoryLabel }}</p>
+    <h1>{{ project.title }}</h1>
+    <p class="page-summary">{{ project.summary }}</p>
+    <div class="article-meta">
+      <time datetime="{{ project.publishedAtIso }}">{{ project.publishedAtDisplay }}</time>
+      {% if project.tags %}<span>{{ project.tags | join(' · ') }}</span>{% endif %}
+    </div>
+  </header>
+  <div class="prose article-body">{{ project.html | safe }}</div>
+  {% if project.links %}
+  <div class="project-links">
+    {% for link in project.links %}<a class="button" href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+  </div>
+  {% endif %}
+</article>
+{% endblock %}
+

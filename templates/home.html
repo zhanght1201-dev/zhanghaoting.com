@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">{{ home.eyebrow }}</p>
+    <p class="identity">{{ home.identity }}</p>
+    <h1>{{ home.headline | replace('\n', '<br />') | safe }}</h1>
+    <p class="lead">{{ home.introduction }}</p>
+    <div class="actions">
+      {% if featured_pages %}<a class="button button-primary" href="{{ featured_pages[0].url }}">开始了解我</a>{% endif %}
+      {% if recent_notes %}<a class="text-link" href="/notes/">阅读最近记录 <span aria-hidden="true">→</span></a>{% endif %}
+    </div>
+  </div>
+  <aside class="now-card" aria-label="当前状态">
+    <div class="now-heading">
+      <p class="eyebrow">NOW</p>
+      <span class="status-dot" aria-hidden="true"></span>
+    </div>
+    <h2>{{ home.now.title }}</h2>
+    <p>{{ home.now.body }}</p>
+    <p class="meta">更新于 {{ home.now.updated }}</p>
+  </aside>
+</section>
+
+<section class="home-intro section-block">
+  <p class="section-label">01 / 一个人，而不只是一份履历</p>
+  <div>
+    <h2>用经历认识我，<br />也用问题认识我。</h2>
+    <p>这里整理学校与科研、职业实践、兴趣生活和持续思考。每个部分既记录完成的事情，也保留选择、判断与变化。</p>
+  </div>
+</section>
+
+{% if featured_pages %}
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <p class="section-label">02 / 个人档案</p>
+      <h2>从不同侧面，拼出完整的我。</h2>
+    </div>
+    <p>只展示已经整理好的内容；仍是草稿的部分不会出现在这里。</p>
+  </div>
+  <div class="domain-grid">
+    {% for page in featured_pages %}
+    <a class="domain-card" href="{{ page.url }}">
+      <span class="card-index">0{{ loop.index }}</span>
+      <p class="eyebrow">{{ page.eyebrow or page.slug }}</p>
+      <h3>{{ page.title }}</h3>
+      <p>{{ page.summary }}</p>
+      <span class="card-link">继续了解 <span aria-hidden="true">↗</span></span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if featured_projects %}
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <p class="section-label">03 / 精选经历</p>
+      <h2>把能力放回具体问题中。</h2>
+    </div>
+  </div>
+  <div class="work-list">
+    {% for project in featured_projects %}
+    {% include "partials/project-card.html" %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if recent_notes %}
+<section class="section-block notes-preview">
+  <div class="section-heading">
+    <div>
+      <p class="section-label">{% if featured_projects %}04{% else %}03{% endif %} / 最近更新</p>
+      <h2>正在形成的想法。</h2>
+    </div>
+    <a class="text-link" href="/notes/">查看全部记录 <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="note-list">
+    {% for note in recent_notes %}
+    {% include "partials/note-card.html" %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if social.email or social.github or social.scholar %}
+<section class="contact-band">
+  <p class="section-label">保持联系</p>
+  <h2>如果这些内容让你产生了新的问题，欢迎与我交流。</h2>
+  <div class="actions">
+    {% if social.email %}<a class="button button-primary" href="mailto:{{ social.email }}">发送邮件</a>{% endif %}
+    {% if social.github %}<a class="text-link" href="{{ social.github }}">GitHub <span aria-hidden="true">↗</span></a>{% endif %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+

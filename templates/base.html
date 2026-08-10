@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ site.language }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ page_description }}" />
+    <link rel="canonical" href="{{ canonical }}" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v={{ site.assetVersion }}" />
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+    <meta property="og:title" content="{{ page_title }}" />
+    <meta property="og:description" content="{{ page_description }}" />
+    <meta property="og:url" content="{{ canonical }}" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true">ZH</span>
+        <span class="brand-name">{{ site.englishName }}</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="/" {% if active == 'home' %}aria-current="page"{% endif %}>首页</a>
+        {% for item in navigation %}
+        <a href="{{ item.url }}" {% if active == item.slug %}aria-current="page"{% endif %}>{{ item.title }}</a>
+        {% endfor %}
+      </nav>
+    </header>
+
+    <main id="main">{% block content %}{% endblock %}</main>
+
+    <footer class="site-footer">
+      <div>
+        <p class="footer-name">{{ site.name }} · {{ site.englishName }}</p>
+        <p>一份持续更新的个人数字档案。</p>
+      </div>
+      <div class="footer-meta">
+        {% if social.email %}<a href="mailto:{{ social.email }}">Email</a>{% endif %}
+        {% if social.github %}<a href="{{ social.github }}" rel="me">GitHub</a>{% endif %}
+        {% if social.scholar %}<a href="{{ social.scholar }}" rel="me">Google Scholar</a>{% endif %}
+        <span>© {{ site.year }}</span>
+      </div>
+    </footer>
+    <script src="/site.js?v={{ site.assetVersion }}" defer></script>
+  </body>
+</html>

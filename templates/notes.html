@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="page-hero page-hero-wide">
+  <p class="eyebrow">NOTES</p>
+  <h1>思考与记录</h1>
+  <p class="page-summary">阅读、思考和经过筛选的生活记录。这里保留的是愿意被长期阅读的部分，而不是未经整理的私人日记。</p>
+</header>
+
+<section class="notes-browser" aria-labelledby="notes-heading">
+  <div class="filter-bar" role="group" aria-label="按类别筛选">
+    <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
+    <button class="filter-button" type="button" data-filter="reading" aria-pressed="false">阅读</button>
+    <button class="filter-button" type="button" data-filter="thought" aria-pressed="false">思考</button>
+    <button class="filter-button" type="button" data-filter="life" aria-pressed="false">生活</button>
+  </div>
+  <h2 id="notes-heading" class="visually-hidden">全部记录</h2>
+  <div class="note-list" data-note-list>
+    {% for note in notes %}
+    {% include "partials/note-card.html" %}
+    {% endfor %}
+  </div>
+  <p class="empty-message" data-empty-message hidden>这个类别暂时还没有公开内容。</p>
+</section>
+{% endblock %}

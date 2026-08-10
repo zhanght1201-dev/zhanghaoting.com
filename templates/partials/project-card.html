@@ -1,0 +1,13 @@
+<article class="work-row">
+  <div class="work-meta">
+    <span>{{ project.categoryLabel }}</span>
+    <time datetime="{{ project.publishedAtIso }}">{{ project.publishedAtDisplay }}</time>
+  </div>
+  <div>
+    <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
+    <p>{{ project.summary }}</p>
+    {% if project.tags %}<p class="tag-line">{{ project.tags | join(' · ') }}</p>{% endif %}
+  </div>
+  <a class="row-arrow" href="{{ project.url }}" aria-label="查看 {{ project.title }}">↗</a>
+</article>
+

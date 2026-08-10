@@ -1,0 +1,12 @@
+<article class="note-row" data-note data-category="{{ note.category }}">
+  <div class="note-meta">
+    <span>{{ note.categoryLabel }}</span>
+    <time datetime="{{ note.publishedAtIso }}">{{ note.publishedAtDisplay }}</time>
+  </div>
+  <div>
+    <h3><a href="{{ note.url }}">{{ note.title }}</a></h3>
+    <p>{{ note.summary }}</p>
+  </div>
+  <span class="read-time">{{ note.readingTime }} min</span>
+</article>
+

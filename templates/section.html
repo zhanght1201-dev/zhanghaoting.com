@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="page-hero">
+  <p class="eyebrow">{{ page.eyebrow or page.slug }}</p>
+  <h1>{{ page.title }}</h1>
+  <p class="page-summary">{{ page.summary }}</p>
+</header>
+
+<div class="page-layout">
+  <aside class="page-aside">
+    <p class="section-label">IN THIS PAGE</p>
+    <p>这部分记录的是阶段性的理解，会随着经历继续修订。</p>
+  </aside>
+  <article class="prose">{{ page.html | safe }}</article>
+</div>
+
+{% if projects %}
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <p class="section-label">SELECTED WORK</p>
+      <h2>精选工作</h2>
+    </div>
+    <p>只收录能够说明具体问题、个人职责和结果证据的代表性案例。</p>
+  </div>
+  <div class="work-list">
+    {% for project in projects %}
+    {% include "partials/project-card.html" %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+

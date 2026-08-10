@@ -1,0 +1,24 @@
+site:
+  name: "张浩厅"
+  englishName: "Haoting Zhang"
+  title: "张浩厅 · 个人数字档案"
+  description: "张浩厅的个人数字档案，记录学习与研究、职业实践、兴趣生活和持续思考。"
+  url: "https://zhanghaoting.com"
+  language: "zh-CN"
+  year: 2026
+  assetVersion: "20260810"
+
+home:
+  eyebrow: "COMPUTER SCIENCE · RESEARCH · ENGINEERING"
+  headline: "把做过的事，\n变成认识自己的线索。"
+  identity: "计算机科学方向研究生"
+  introduction: "我关注如何把可靠的研究方法转化为可复现、可使用的工程系统，也在这里记录学习、实践和生活如何共同塑造一个人。"
+  now:
+    title: "现在"
+    body: "正在整理个人网站的内容框架，并持续归档近期研究、项目与阅读记录。"
+    updated: "2026 年 8 月"
+
+social:
+  email: ""
+  github: ""
+  scholar: ""
