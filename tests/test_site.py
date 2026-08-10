@@ -85,7 +85,7 @@ class BuiltSiteTests(unittest.TestCase):
         )
         self.assertNotIn("阅读记录标题", public_text)
         self.assertNotIn("科研项目标题", public_text)
-        self.assertFalse((PUBLIC / "work").exists())
+        self.assertTrue((PUBLIC / "work" / "index.html").is_file())
         self.assertFalse((PUBLIC / "interests").exists())
         self.assertFalse((PUBLIC / "contact").exists())
 
@@ -94,7 +94,7 @@ class BuiltSiteTests(unittest.TestCase):
         namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         urls = [item.text or "" for item in root.findall("sm:url/sm:loc", namespace)]
         self.assertEqual(len(urls), len(set(urls)))
-        self.assertEqual(len(urls), 5)
+        self.assertEqual(len(urls), 6)
         self.assertFalse(any("reading-template" in url for url in urls))
 
 
