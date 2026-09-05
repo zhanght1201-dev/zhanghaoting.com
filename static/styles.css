@@ -707,6 +707,12 @@ h3 {
   font-size: 12px;
 }
 
+.note-row .tag-list {
+  margin: 12px 0 0;
+  gap: 8px;
+  max-width: 100%;
+}
+
 .not-found {
   min-height: 660px;
   padding: 140px 0;

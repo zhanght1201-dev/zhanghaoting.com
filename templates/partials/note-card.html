@@ -6,6 +6,11 @@
   <div>
     <h3><a href="{{ note.url }}">{{ note.title }}</a></h3>
     <p>{{ note.summary }}</p>
+    {% if note.tags %}
+    <div class="tag-list" aria-label="文章标签">
+      {% for tag in note.tags %}<span># {{ tag }}</span>{% endfor %}
+    </div>
+    {% endif %}
   </div>
   <span class="read-time">{{ note.readingTime }} min</span>
 </article>

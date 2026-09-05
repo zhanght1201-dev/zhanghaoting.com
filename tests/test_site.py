@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import unittest
+from build import CONTENT, read_markdown
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
@@ -94,10 +95,14 @@ class BuiltSiteTests(unittest.TestCase):
         namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         urls = [item.text or "" for item in root.findall("sm:url/sm:loc", namespace)]
         self.assertEqual(len(urls), len(set(urls)))
-        self.assertEqual(len(urls), 6)
+        pages = [read_markdown(p) for p in (CONTENT / 'pages').glob('*.md')]
+        notes = [read_markdown(p) for p in (CONTENT / 'notes').glob('*.md')]
+        projects = [read_markdown(p) for p in (CONTENT / 'projects').glob('*.md')]
+        expected = 1 + sum(not p['draft'] for p in pages) + sum(not p['draft'] for p in projects)
+        expected += sum(not p['draft'] for p in notes) + int(any(not p['draft'] for p in notes))
+        self.assertEqual(len(urls), expected)
         self.assertFalse(any("reading-template" in url for url in urls))
 
 
 if __name__ == "__main__":
     unittest.main()
-
