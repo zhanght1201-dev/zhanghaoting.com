@@ -1,5 +1,7 @@
 # zhanghaoting.com
 
+> 当前线上界面与编辑规范见 [四扇窗口维护手册](docs/four-windows-maintenance.md)。正式首页使用 `templates/window-home.html`，详情页使用展签阅读布局。
+
 张浩厅的个人数字档案。网站使用 Markdown 保存长期内容，通过 Python 构建为可直接部署的纯静态页面。
 
 ## 本地使用
