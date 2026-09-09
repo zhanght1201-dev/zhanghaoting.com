@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import argparse
 import re
 import shutil
 from datetime import date, datetime
@@ -90,7 +91,9 @@ def write_text(relative_path: str, content: str) -> None:
     target.write_text(content, encoding="utf-8", newline="\n")
 
 
-def main() -> None:
+def main(preview: bool = False, interaction_preview: bool = False, pixel_preview: bool = False) -> None:
+    global OUTPUT
+    OUTPUT = ROOT / ('.pixel-preview' if pixel_preview else '.interaction-preview' if interaction_preview else '.preview' if preview else 'public')
     config = yaml.safe_load((ROOT / "site.yaml").read_text(encoding="utf-8"))
     site = config["site"]
     home = config["home"]
@@ -98,6 +101,12 @@ def main() -> None:
 
     pages = [read_markdown(path) for path in sorted((CONTENT / "pages").glob("*.md"))]
     notes = [read_markdown(path) for path in sorted((CONTENT / "notes").glob("*.md"))]
+    if preview:
+        candidates = {n['slug']: n for n in notes}
+        for path in sorted((ROOT / 'reviews' / 'notes').glob('*.md')):
+            candidate = read_markdown(path)
+            candidates[candidate['slug']] = candidate
+        notes = list(candidates.values())
     projects = [read_markdown(path) for path in sorted((CONTENT / "projects").glob("*.md"))]
 
     for page in pages:
@@ -128,7 +137,7 @@ def main() -> None:
 
     public_pages = sorted((p for p in pages if not p["draft"]), key=lambda p: p["navOrder"])
     public_notes = sorted(
-        (n for n in notes if not n["draft"]),
+        (n for n in notes if not n["draft"] or (preview and n.get('reviewReady'))),
         key=lambda n: n["publishedAtIso"],
         reverse=True,
     )
@@ -165,6 +174,7 @@ def main() -> None:
             social=social,
             navigation=navigation,
             category_labels=CATEGORY_LABELS,
+            archive_home="/",
             **context,
         )
 
@@ -172,12 +182,18 @@ def main() -> None:
         shutil.rmtree(OUTPUT)
     shutil.copytree(STATIC, OUTPUT)
 
+    home_sections = {p["slug"]: p for p in public_pages if p["slug"] in ("about", "school", "work")}
+    if public_notes:
+        home_sections["notes"] = {"title": "思考与记录", "url": "/notes/", "summary": "记录正在形成的想法，以及阅读、生活与持续探索。"}
+
     featured_pages = [p for p in public_pages if p.get("featured") and p["slug"] != "contact"]
     featured_projects = [p for p in public_projects if p.get("featured")][:2]
     write_text(
         "index.html",
         render(
-            "home.html",
+            "window-home.html",
+            sections=home_sections,
+            section_projects={slug: [p for p in public_projects if p["section"] == slug] for slug in ("school", "work")},
             active="home",
             canonical=absolute_url(site["url"], "/"),
             page_title=site["title"],
@@ -202,6 +218,42 @@ def main() -> None:
                 projects=page_projects,
             ),
         )
+
+    # Explicit opt-in preview, kept out of the production build and sitemap.
+    if pixel_preview:
+        sections = {p['slug']: p for p in public_pages if p['slug'] in ('about', 'school', 'work')}
+        if public_notes:
+            sections['notes'] = {'title': '思考与记录', 'url': '/notes/', 'summary': '记录正在形成的想法，以及阅读、生活与持续探索。'}
+        write_text('pixel-preview/index.html', render('pixel-preview.html',
+            active='home', canonical=absolute_url(site['url'], '/'),
+            page_title=f"像素物件预览 · {site['name']}", page_description=site['description'],
+            sections=sections, recent_notes=public_notes[:3],
+            section_projects={slug: [p for p in public_projects if p['section'] == slug] for slug in ('school', 'work')}))
+
+        card_sections = dict(sections)
+        card_sections.setdefault('notes', {'title': '思考与记录', 'url': '/notes/', 'summary': '记录正在形成的想法，以及阅读、生活与持续探索。'})
+        write_text('card-preview/index.html', render('card-preview.html',
+            sections=card_sections, recent_notes=public_notes[:3],
+            section_projects={slug: [p for p in public_projects if p['section'] == slug] for slug in ('school', 'work')}))
+
+    if interaction_preview:
+        school_page = next((p for p in public_pages if p["slug"] == "school"), None)
+        if school_page:
+            write_text(
+                "interaction-preview/index.html",
+                render(
+                    "interaction-preview.html",
+                    active="home",
+                    canonical=absolute_url(site["url"], "/"),
+                    page_title=f"人物交互预览 · {site['name']}",
+                    page_description="科研终端人物交互预览。",
+                    featured_pages=featured_pages,
+                    featured_projects=featured_projects,
+                    recent_notes=public_notes[:3],
+                    school_page=school_page,
+                    school_projects=[p for p in public_projects if p["section"] == "school"],
+                ),
+            )
 
     if public_notes:
         years = sorted({note["year"] for note in public_notes}, reverse=True)
@@ -269,5 +321,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    preview_mode = parser.add_mutually_exclusive_group()
+    preview_mode.add_argument('--preview', action='store_true', help='Build review-ready notes into .preview, never public')
+    preview_mode.add_argument('--interaction-preview', action='store_true', help='Build character demo into .interaction-preview, never public')
+    preview_mode.add_argument('--pixel-preview', action='store_true', help='Build object demo into .pixel-preview, never public')
+    args = parser.parse_args()
+    main(preview=args.preview, interaction_preview=args.interaction_preview, pixel_preview=args.pixel_preview)
 

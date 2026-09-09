@@ -1,18 +1,12 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "reading-base.html" %}
+{% block reading_content %}
 <header class="page-hero">
   <p class="eyebrow">{{ page.eyebrow or page.slug }}</p>
   <h1>{{ page.title }}</h1>
   <p class="page-summary">{{ page.summary }}</p>
 </header>
 
-<div class="page-layout">
-  <aside class="page-aside">
-    <p class="section-label">IN THIS PAGE</p>
-    <p>这部分记录的是阶段性的理解，会随着经历继续修订。</p>
-  </aside>
-  <article class="prose">{{ page.html | safe }}</article>
-</div>
+<article class="prose">{{ page.html | safe }}</article>
 
 {% if projects %}
 <section class="section-block">

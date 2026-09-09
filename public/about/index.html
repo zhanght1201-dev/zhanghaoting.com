@@ -3,25 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="theme-color" content="#0b1218" />
     <title>关于我 · 张浩厅</title>
     <meta name="description" content="从当前身份、关注的问题和做事方式出发，认识一个仍在形成中的我。" />
     <link rel="canonical" href="https://zhanghaoting.com/about/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=20260810" />
-    <meta property="og:type" content="website" />
+    <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css?v=20260905-night-archive-1" />
+    <link rel="stylesheet" href="/archive.css?v=20260905-night-archive-1" />
+<link rel="stylesheet" href="/reading.css?v=1">    <meta property="og:type" content="website" />
     <meta property="og:title" content="关于我 · 张浩厅" />
     <meta property="og:description" content="从当前身份、关注的问题和做事方式出发，认识一个仍在形成中的我。" />
     <meta property="og:url" content="https://zhanghaoting.com/about/" />
   </head>
-  <body>
+  <body class="is-inner" data-section="about">
     <a class="skip-link" href="#main">跳到正文</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="返回首页">
         <span class="brand-mark" aria-hidden="true">ZH</span>
-        <span class="brand-name">Haoting Zhang</span>
+        <span class="brand-name">/ 张浩厅</span>
       </a>
-      <nav class="site-nav" aria-label="主导航">
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>菜单 <span aria-hidden="true">☰</span></button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航">
         <a href="/" >首页</a>
         <a href="/about/" aria-current="page">关于</a>
         <a href="/school/" >学校与科研</a>
@@ -30,18 +33,13 @@
       </nav>
     </header>
 
-    <main id="main"><header class="page-hero">
+    <main id="main" tabindex="-1"><div class="reading-layout" data-reading><aside class="reading-aside"><a class="reading-return" href="/">← 返回四扇窗口</a><div class="reading-art" aria-hidden="true"><svg viewBox="40 210 329 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><clipPath id="scene-reading-about"><rect x="43" y="214" width="323" height="463"/></clipPath></defs><image href="/images/window-cards/concept.png" width="1536" height="1024" clip-path="url(#scene-reading-about)"/></svg><span class="glow"></span></div><p class="reading-label">01 / IDENTITY</p><nav class="reading-toc" aria-label="本页目录" hidden><p>本页目录</p><div data-toc></div></nav><nav class="reading-sections" aria-label="其他栏目"><a href="/about/" aria-current="page">01 关于我</a><a href="/school/" >02 学校与科研</a><a href="/work/" >03 职业与实践</a><a href="/notes/" >04 思考与记录</a></nav></aside><div class="reading-content"><p class="reading-kicker">01 / IDENTITY</p><header class="page-hero">
   <p class="eyebrow">ABOUT</p>
   <h1>关于我</h1>
   <p class="page-summary">从当前身份、关注的问题和做事方式出发，认识一个仍在形成中的我。</p>
 </header>
 
-<div class="page-layout">
-  <aside class="page-aside">
-    <p class="section-label">IN THIS PAGE</p>
-    <p>这部分记录的是阶段性的理解，会随着经历继续修订。</p>
-  </aside>
-  <article class="prose"><h2>当前的我</h2>
+<article class="prose"><h2>当前的我</h2>
 <p>我目前是一名计算机科学方向的研究生。比起用一组职位、奖项或技术名词定义自己，我更愿意从正在关注的问题、选择的做事方式，以及持续发生的变化开始介绍。</p>
 <p>我关心研究是否可靠，也关心研究成果能否被复现、理解和使用。因此，在学习与实践中，我会同时追问方法为什么有效、证据是否充分，以及它最终能否成为一个真正可用的系统。</p>
 <h2>我看重的事情</h2>
@@ -54,8 +52,8 @@
 <p>这个网站最初带着一点求职目的开始，但我逐渐意识到，仅仅把它做成一份在线简历太狭窄了。它更适合成为一份长期的个人档案：既呈现已经完成的工作，也记录兴趣、疑问和仍在形成中的想法。</p>
 <h2>接下来</h2>
 <p>当前阶段，我会优先补全教育与研究经历、代表性项目以及近期阅读记录。页面不会追求一次完成，而会随着新的经历和认识持续修订。</p></article>
-</div>
 
+<div class="reading-end"><a href="#main">↑ 回到开头</a><a href="/">返回总览 ↗</a></div></div></div>
 </main>
 
     <footer class="site-footer">
@@ -67,6 +65,6 @@
         <span>© 2026</span>
       </div>
     </footer>
-    <script src="/site.js?v=20260810" defer></script>
-  </body>
+    <script src="/site.js?v=20260905-night-archive-1" defer></script>
+<script src="/reading.js?v=1" defer></script>  </body>
 </html>

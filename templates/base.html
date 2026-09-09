@@ -3,25 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="theme-color" content="#0b1218" />
     <title>{{ page_title }}</title>
     <meta name="description" content="{{ page_description }}" />
     <link rel="canonical" href="{{ canonical }}" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles.css?v={{ site.assetVersion }}" />
+    <link rel="stylesheet" href="/archive.css?v={{ site.assetVersion }}" />
+    {% block extra_styles %}{% endblock %}
     <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
     <meta property="og:title" content="{{ page_title }}" />
     <meta property="og:description" content="{{ page_description }}" />
     <meta property="og:url" content="{{ canonical }}" />
   </head>
-  <body>
+  <body class="{% if active == 'home' %}is-home{% else %}is-inner{% endif %}" data-section="{{ active }}">
     <a class="skip-link" href="#main">跳到正文</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="返回首页">
         <span class="brand-mark" aria-hidden="true">ZH</span>
-        <span class="brand-name">{{ site.englishName }}</span>
+        <span class="brand-name">/ {{ site.name }}</span>
       </a>
-      <nav class="site-nav" aria-label="主导航">
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>菜单 <span aria-hidden="true">☰</span></button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航">
         <a href="/" {% if active == 'home' %}aria-current="page"{% endif %}>首页</a>
         {% for item in navigation %}
         <a href="{{ item.url }}" {% if active == item.slug %}aria-current="page"{% endif %}>{{ item.title }}</a>
@@ -29,7 +33,7 @@
       </nav>
     </header>
 
-    <main id="main">{% block content %}{% endblock %}</main>
+    <main id="main" tabindex="-1">{% block content %}{% endblock %}</main>
 
     <footer class="site-footer">
       <div>
@@ -44,5 +48,6 @@
       </div>
     </footer>
     <script src="/site.js?v={{ site.assetVersion }}" defer></script>
+    {% block extra_scripts %}{% endblock %}
   </body>
 </html>

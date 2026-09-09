@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block extra_styles %}<meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="/pixel-preview.css?v=pixel1" />{% endblock %}
+{% block content %}
+<div class="pixel-home">
+  <section class="pixel-intro" aria-labelledby="pixel-title">
+    <div><p class="pixel-kicker">HAOTING ZHANG / PERSONAL COLLECTION</p><h1 id="pixel-title">一些经历，<br />一个正在形成的我<span class="pixel-period">.</span></h1></div>
+    <div class="pixel-intro-note"><p>{{ home.identity }}</p><p>学习、实践，也保持好奇。<br />从四件小物，认识我的不同侧面。</p><span class="pixel-instruction">选择一件物品，打开一份记录 ↙</span></div>
+  </section>
+  <nav class="object-grid" aria-label="探索个人档案">
+    {% set labels = {'about': ('01', '关于我', '一个人，以及他的来路', 'IDENTITY'), 'school': ('02', '学校与科研', '从问题出发，寻找答案', 'RESEARCH'), 'work': ('03', '职业与实践', '把想法做成真实的东西', 'PRACTICE'), 'notes': ('04', '思考与记录', '留下尚未定型的想法', 'FIELD NOTES')} %}
+    {% for slug in ['about', 'school', 'work', 'notes'] %}{% if slug in sections %}
+    {% set item = labels[slug] %}
+    <a class="object-entry object-{{ slug }}" href="{{ sections[slug].url }}" data-object="{{ slug }}">
+      <span class="object-index">{{ item[0] }} / {{ item[3] }}</span>
+      <span class="object-stage" aria-hidden="true"><span class="object-dots"></span><span class="object-base"></span><span class="object-art">
+        {% include 'partials/pixel-' ~ slug ~ '.html' %}
+      </span></span>
+      <span class="object-caption"><span><span class="object-title">{{ item[1] }}</span><span class="object-description">{{ item[2] }}</span></span><span class="object-arrow">↗</span></span>
+    </a>
+    {% endif %}{% endfor %}
+  </nav>
+  <section class="pixel-recent" aria-labelledby="recent-title"><div class="pixel-section-heading"><div><p class="pixel-kicker">RECENT ENTRIES</p><h2 id="recent-title">最近留下的线索</h2></div><a href="/notes/">全部记录 ↗</a></div>
+    {% for note in recent_notes %}<a class="pixel-note" href="{{ note.url }}"><time datetime="{{ note.publishedAtIso }}">{{ note.publishedAtIso }}</time><span>{{ note.title }}</span><span aria-hidden="true">↗</span></a>{% endfor %}
+  </section>
+  <div class="pixel-now"><span class="pixel-led"></span><p>{{ home.now.body }}</p><span>{{ home.now.updated }}</span></div>
+</div>
+{% for slug, section in sections.items() %}
+<dialog class="pixel-dialog" data-dossier="{{ slug }}" aria-labelledby="dossier-{{ slug }}">
+  <div class="pixel-dialog-head"><span class="pixel-kicker">PERSONAL COLLECTION / {{ slug | upper }}</span><button type="button" data-dismiss aria-label="关闭档案" autofocus>×</button></div>
+  <h2 id="dossier-{{ slug }}">{{ section.title }}</h2><p>{{ section.summary }}</p>
+  {% set entries = recent_notes if slug == 'notes' else section_projects.get(slug, []) %}
+  {% if entries %}<ul class="dossier-entries">{% for entry in entries %}<li><a href="{{ entry.url }}">{{ entry.title }} <span aria-hidden="true">↗</span></a></li>{% endfor %}</ul>{% endif %}
+  <a class="dossier-more" href="{{ section.url }}">{{ '全部记录' if slug == 'notes' else '进入栏目' }} ↗</a><p class="dossier-signature">ZH / 持续收集，持续更新</p>
+</dialog>
+{% endfor %}
+{% endblock %}
+{% block extra_scripts %}<script src="/pixel-preview.js?v=pixel1" defer></script>{% endblock %}

@@ -1,0 +1,71 @@
+/* Experimental single-route demo; only loaded by interaction-preview.html. */
+.dynamic-room { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; pointer-events: none; z-index: 0; }
+.empty-room { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+.actor { position: absolute; left: 46.7%; top: 77%; width: 29.3%; aspect-ratio: 1; transform: translate(-50%, -97.1875%); transform-origin: 50% 97.1875%; z-index: 2; }
+.actor-sprite, .walk-pose { width: 100%; height: 100%; background: url('/images/night-archive/walk-approved-v4.webp') 0 0 / 400% 400% no-repeat; image-rendering: pixelated; }
+.actor-sprite { filter: brightness(.82) saturate(.88); }
+.actor-shadow { position: absolute; left: 46.7%; top: 77%; width: 8%; height: 1.5%; background: #0008; border-radius: 50%; transform: translate(-50%, -50%); filter: blur(2px); z-index: 1; }
+.desk-front { position: absolute; inset: 0; background: url('/images/night-archive/room-empty.webp') center / 100% 100%; clip-path: polygon(58% 47%, 81% 51%, 80% 53.7%, 58% 49.7%); z-index: 3; }
+.scene-stage[data-character-depth="front"] .actor { z-index: 4; }
+.terminal-light { position: absolute; left: 68.9%; top: 27%; width: 9.3%; height: 10.4%; background: #6df7cb; opacity: 0; mix-blend-mode: screen; box-shadow: 0 0 32px 12px #71c7ba55; transform: skewY(5deg); transition: opacity 180ms; }
+.scene-stage[data-character-ready] .scene-trail { display: none; }
+.scene-stage[data-character-ready] .room-heading, .scene-stage[data-character-ready] .scene-link { z-index: 4; }
+.scene-stage[data-character-ready] .character-hint { z-index: 5; font-size: 24px; }
+.scene-stage[data-character-state="walking"] .character-hint,
+.scene-stage[data-character-state="arrival"] .character-hint { opacity: 1; transform: none; }
+.scene-stage[data-character-ready]:has(.scene-link--school:hover) .terminal-light,
+.scene-stage[data-character-ready]:has(.scene-link--school:focus-visible) .terminal-light { opacity: .12; }
+.scene-stage[data-character-state="arrival"] .terminal-light,
+.scene-stage[data-character-state="viewing"] .terminal-light { opacity: .22; }
+.preview-controls { padding: 20px 32px; background: #142129; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; align-items: center; }
+.preview-controls .section-label { margin-bottom: 8px; }
+.preview-controls p:last-child { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+.preview-controls .button { flex-shrink: 0; cursor: pointer; background: transparent; }
+.preview-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+.preview-buttons button[aria-pressed="true"] { color: var(--paper); background: var(--accent); }
+.walk-study { border-top: 1px solid var(--line); background: #142129; padding: 24px 32px; }
+.walk-study summary { font: 24px var(--display); color: var(--accent); cursor: pointer; min-height: 44px; }
+.walk-frames { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.walk-frame { margin: 0; padding: 16px; background: #0b1218; border: 1px solid var(--line); text-align: center; }
+.walk-pose { width: 100%; height: auto; aspect-ratio: 1; }
+.walk-frame figcaption { color: var(--ink); font: 18px/1.5 var(--display); margin-top: 12px; }
+.walk-frame p { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+.study-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 12px; }
+.study-controls label { display: flex; align-items: center; gap: 12px; }
+.study-controls input { width: 110px; min-height: 44px; accent-color: var(--accent); }
+.study-controls button { cursor: pointer; background: transparent; }
+.sprite-sheet-study { margin-top: 24px; }
+.sprite-sheet { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.sprite-sheet .walk-frame { padding: 8px; }
+.sprite-sheet figcaption { font-size: 14px; }
+@media (max-width: 767px) { .walk-study { padding: 20px; } .walk-frames { grid-template-columns: repeat(2, minmax(0, 1fr)); } .walk-frame { padding: 8px; } }
+.research-dialog { position: fixed; inset: 0 max(32px, calc((100vw - 1440px) / 2 + 48px)) 0 auto; margin: auto 0; width: min(420px, 42vw); max-height: 80dvh; padding: 28px; border: 1px solid var(--accent); color: var(--ink); background: #101b21fa; box-shadow: 8px 8px #07101499; }
+.research-dialog::backdrop { background: #040b104a; }
+.research-dialog h2 { margin: 24px 0; color: var(--accent); font: 36px/1.5 var(--display); }
+.research-dialog > p { color: var(--muted); line-height: 1.9; }
+.dossier-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dossier-heading .eyebrow { font-size: 12px; }
+.dialog-close { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); background: transparent; color: var(--accent); font-size: 28px; cursor: pointer; }
+.research-dialog > .button { margin-top: 24px; gap: 16px; }
+.dossier-projects { border-block: 1px solid var(--line); margin-top: 24px; }
+.dossier-projects a { display: flex; justify-content: space-between; gap: 16px; padding-block: 16px; color: var(--accent); text-underline-offset: 4px; }
+.research-dialog .dossier-footnote { margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; }
+@media (max-width: 767px) {
+  /* Both image layers and all actor coordinates use the full 3:2 scene. */
+  .scene-image { aspect-ratio: 3 / 2; object-fit: contain; }
+  .scene-stage { padding-bottom: 0; }
+  .scene-entrances { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; background: #142129; }
+  .scene-stage .scene-link { position: static; width: auto; min-width: 0; transform: none; padding: 12px 8px; }
+  .scene-stage .scene-label { font-size: 16px; }
+  .scene-stage .scene-detail { display: none; }
+  .scene-stage .character-hint { display: none; }
+  .room-heading { top: 12px; left: 12px; }
+  .room-kicker { display: none; }
+  .room-heading h1 { font-size: 18px; margin-bottom: 4px; }
+  .room-heading > p:last-child { font-size: 12px; }
+  .preview-controls { padding: 20px; flex-direction: column; align-items: start; }
+  .research-dialog { inset: auto 0 0; width: calc(100% - 24px); max-height: 58dvh; margin: 0 auto 12px; padding: 20px; }
+  .research-dialog h2 { font-size: 24px; margin: 16px 0; }
+  .research-dialog > .button { margin-top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .actor, .actor-shadow { display: none; } }

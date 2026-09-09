@@ -1,0 +1,50 @@
+{% extends "home.html" %}
+{% block extra_styles %}
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/character-preview.css?v={{ site.assetVersion }}-walk4" />
+{% endblock %}
+{% block scene_art %}
+{{ super() }}
+<div class="dynamic-room" data-dynamic-room hidden aria-hidden="true">
+  <img class="empty-room" src="/images/night-archive/room-empty.webp" width="1536" height="1024" alt="" />
+  <div class="terminal-light"></div>
+  <div class="actor-shadow" data-actor-shadow></div>
+  <div class="actor" data-actor><div class="actor-sprite" data-actor-sprite></div></div>
+  <div class="desk-front"></div>
+</div>
+{% endblock %}
+{% block room_tools %}
+<div class="preview-controls">
+  <div><p class="section-label">人物交互预览 / 01</p><p data-animation-status role="status" aria-live="polite">点击「学校与科研」体验人物行动。其他栏目仍可直接访问。</p></div>
+  <div class="preview-buttons"><button type="button" class="button" data-slow-motion aria-pressed="false" hidden>慢速查看</button><button type="button" class="button" data-return hidden>返回中央</button><button type="button" class="button" data-replay hidden>重新体验</button></div>
+</div>
+<details class="walk-study" open>
+  <summary>四方向行走 · 摆臂与交叉步</summary>
+  <div class="study-controls"><button type="button" class="button" data-study-toggle aria-pressed="false" disabled>暂停步态</button><label>逐帧查看 <input type="range" min="0" max="3" step="1" value="0" data-study-frame disabled /></label><output data-study-number>1 / 4</output></div>
+  <div class="walk-frames">
+    {% for direction, label in [('down', '正面 · 向下'), ('left', '左侧 · 向左'), ('right', '右侧 · 向右'), ('up', '背面 · 向上')] %}
+    <figure class="walk-frame"><div class="walk-pose" data-study-direction="{{ direction }}" style="background-position: 0 {{ loop.index0 * 100 / 3 }}%" role="img" aria-label="{{ label }}行走循环"></div><figcaption>{{ label }}</figcaption></figure>
+    {% endfor %}
+  </div>
+  <details class="sprite-sheet-study"><summary>展开 4 × 4 完整帧表</summary><div class="sprite-sheet">
+    {% for direction, label in [('down', '正面'), ('left', '左侧'), ('right', '右侧'), ('up', '背面')] %}
+    {% set row = loop.index0 %}
+    {% for frame in range(4) %}
+    <figure class="walk-frame"><div class="walk-pose" style="background-position: {{ frame * 100 / 3 }}% {{ row * 100 / 3 }}%" role="img" aria-label="{{ label }}第 {{ frame + 1 }} 帧"></div><figcaption>{{ label }} / {{ frame + 1 }}</figcaption></figure>
+    {% endfor %}{% endfor %}
+  </div></details>
+</details>
+<dialog class="research-dialog" data-research-dialog aria-labelledby="research-title">
+  <div class="dossier-heading"><span class="eyebrow">RESEARCH ARCHIVE / 02</span><button class="dialog-close" type="button" data-close-dialog aria-label="关闭科研档案" autofocus>×</button></div>
+  <h2 id="research-title">{{ school_page.title }}</h2>
+  <p>{{ school_page.summary }}</p>
+  {% if school_projects %}
+  <div class="dossier-projects">
+    {% for project in school_projects %}<a href="{{ project.url }}">{{ project.title }} <span aria-hidden="true">↗</span></a>{% endfor %}
+  </div>
+  {% endif %}
+  <a class="button button-primary" href="{{ school_page.url }}">进入栏目 <span aria-hidden="true">→</span></a>
+  <p class="dossier-footnote">学习 · 研究 · 阶段性的认识</p>
+</dialog>
+{% endblock %}
+{% block extra_scripts %}<script src="/character-preview.js?v={{ site.assetVersion }}-walk4" defer></script>{% endblock %}

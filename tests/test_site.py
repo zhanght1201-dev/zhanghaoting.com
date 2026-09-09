@@ -70,6 +70,19 @@ class BuiltSiteTests(unittest.TestCase):
                 self.assertEqual(parser.canonical_count, 1)
                 self.assertEqual(parser.h1_count, 1)
 
+    def test_window_home_and_reading_flow(self) -> None:
+        home = (PUBLIC / 'index.html').read_text(encoding='utf-8')
+        self.assertNotIn('noindex', home)
+        self.assertNotIn('scene-stage', home)
+        self.assertNotIn('这里将接入', home)
+        for slug in ('about', 'school', 'work', 'notes'):
+            self.assertIn(f'data-summary="{slug}"', home)
+            self.assertIn(f'data-open="{slug}"', home)
+            detail = (PUBLIC / slug / 'index.html').read_text(encoding='utf-8')
+            self.assertIn('reading-layout', detail)
+            self.assertIn('class="reading-return" href="/"', detail)
+        self.assertIn('/notes/why-this-site/', home)
+
     def test_all_root_relative_links_exist(self) -> None:
         for path in PUBLIC.rglob("*.html"):
             parser = PageParser()

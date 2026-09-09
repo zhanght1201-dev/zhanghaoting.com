@@ -1,10 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="hero">
+{% set scene_items = {
+  'about': {'number': '01', 'detail': '个人数字档案', 'hint': '打开人物档案'},
+  'school': {'number': '02', 'detail': '研究 · 项目 · 知识', 'hint': '查看研究档案'},
+  'work': {'number': '03', 'detail': '经历 · 项目 · 实践', 'hint': '走进实践工作台'},
+  'notes': {'number': '04', 'detail': '阅读 · 随笔 · 灵感', 'hint': '翻开思考与记录'}
+} %}
+<section class="archive-room" aria-labelledby="room-title">
+  <div class="scene-stage" data-scene>
+    {% block scene_art %}
+    <img class="scene-image" src="/images/night-archive/room.webp" width="1536" height="1024" fetchpriority="high" alt="夜间档案室里，一位手持记录本的像素人物站在中央，周围是档案柜、科研终端、实践工作台和书桌。" />
+    {% endblock %}
+    <div class="room-heading">
+      <p class="room-kicker">HAOTING ZHANG / PERSONAL ARCHIVE</p>
+      <h1 id="room-title">{{ site.name }}的夜间档案室</h1>
+      <p>学习 · 实践 · 思考</p>
+    </div>
+    <svg class="scene-trail" viewBox="0 0 1000 667" aria-hidden="true"><path data-scene-trail d="" /></svg>
+    <div class="character-hint" data-character-hint aria-hidden="true">点击物件，打开档案</div>
+    <nav class="scene-entrances" aria-label="探索四个档案栏目">
+      {% for item in navigation %}
+      {% if item.slug in scene_items %}
+      {% set room_item = scene_items[item.slug] %}
+      <a class="scene-link scene-link--{{ item.slug }}" href="{{ item.url }}" data-scene-link="{{ item.slug }}" data-hint="{{ room_item.hint }}">
+        <span class="scene-label"><span class="scene-number">{{ room_item.number }}</span>{{ item.title }}<span class="scene-arrow" aria-hidden="true">↗</span></span>
+        <span class="scene-detail">{{ room_item.detail }}</span>
+      </a>
+      {% endif %}
+      {% endfor %}
+    </nav>
+  </div>
+  <div class="room-status"><p><span class="status-dot" aria-hidden="true"></span>{{ home.now.title }} · {{ home.now.body }}</p><a href="#archive-intro">继续了解 <span aria-hidden="true">↓</span></a></div>
+  {% block room_tools %}{% endblock %}
+</section>
+
+<section class="hero section-block" id="archive-intro">
   <div class="hero-copy">
     <p class="eyebrow">{{ home.eyebrow }}</p>
     <p class="identity">{{ home.identity }}</p>
-    <h1>{{ home.headline | replace('\n', '<br />') | safe }}</h1>
+    <h2>{{ home.headline | replace('\n', '<br />') | safe }}</h2>
     <p class="lead">{{ home.introduction }}</p>
     <div class="actions">
       {% if featured_pages %}<a class="button button-primary" href="{{ featured_pages[0].url }}">开始了解我</a>{% endif %}
