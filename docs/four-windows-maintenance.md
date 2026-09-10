@@ -89,3 +89,7 @@ python -m http.server 8000 --bind 127.0.0.1 --directory public
 2026-09-09 发布使用了 `artifacts/publish-four-windows` 独立 Git worktree，分支 `codex/publish-four-windows`，基于最新远端提交；从该分支推送 HEAD:main。原始工作区仍保留完整设计过程和未提交文件，未被清理。后续更新前先查看 `git worktree list` 与 `git status`，不可直接从旧本地 main 覆盖远端。
 
 之前的 file:// 效果比较页是本机视觉草案，不是生产依赖；不需要把这些绝对路径写入网站。
+
+## 2026-09-10 已确认互动更新
+
+首页固定镜头，移除整卡位移及旧打光叠层。`static/window-motion.js` 驱动门扇轻开、四颗错峰像素流星、吊装上提与书签/断续像素星线；望远镜和书页保持原形。`notes-quiet.png` 是用户授权代码局部修补的低密度静态星点底图，原图 `concept.png` 保留；`motion-clean.png` 用于门扇遮挡背景。简介和阅读场景同步低密度书页。触屏及减少动态保持静态，预览调试按钮不进入生产。
