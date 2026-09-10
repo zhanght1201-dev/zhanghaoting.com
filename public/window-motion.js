@@ -1,5 +1,5 @@
 (()=>{
-const ns='http://www.w3.org/2000/svg',media=matchMedia('(prefers-reduced-motion: reduce)'),states=[],live=null;let slow=false,manualReduced=false,allowMotion=false,last=0;const touchOnly=matchMedia('(hover: none)');const disabled=()=>manualReduced||(media.matches&&!allowMotion)||touchOnly.matches;const img=(clip,src='concept.png')=>`<image href="/images/window-cards/${src}" width="1536" height="1024" ${clip?`clip-path="url(#${clip})"`:''}/>`;const info={about:'门扇轻开 · 地面光带 · 固定镜头',school:'四颗像素流星 · 错峰划过 · 星空感应',work:'吊索收短 · 构件上提 · 轻摆停稳',notes:'书签轻摆 · 像素星簇 · 断续星线'};
+const ns='http://www.w3.org/2000/svg',media=matchMedia('(prefers-reduced-motion: reduce)'),states=[],live=null;let slow=false,manualReduced=false,allowMotion=false,last=0;const touchOnly=matchMedia('(hover: none)');const disabled=()=>manualReduced;const img=(clip,src='concept.png')=>`<image href="/images/window-cards/${src}" width="1536" height="1024" ${clip?`clip-path="url(#${clip})"`:''}/>`;const info={about:'门扇轻开 · 地面光带 · 固定镜头',school:'四颗像素流星 · 错峰划过 · 星空感应',work:'吊索收短 · 构件上提 · 轻摆停稳',notes:'书签轻摆 · 像素星簇 · 断续星线'};
 function shape(id,d){return `<clipPath id="${id}"><path d="${d}"/></clipPath>`}
 for(const [index,card] of [...document.querySelectorAll('.card')].entries()){
 const slug=card.dataset.open,svg=card.querySelector('svg'),prefix='extra-'+slug;
@@ -26,9 +26,9 @@ motionControl.className='motion-control';motionControl.type='button';
 document.querySelector('.intro').append(motionControl);
 try{allowMotion=sessionStorage.getItem('window-motion')==='allow';manualReduced=sessionStorage.getItem('window-motion')==='pause'}catch{}
 function updateControl(){
- motionControl.hidden=touchOnly.matches;
+ motionControl.hidden=false;
  const paused=disabled();
- motionControl.textContent=paused?(media.matches&&!manualReduced?'系统已减少动态 · 启用本次动画':'动画已暂停 · 启用本次动画'):'动画已启用 · 暂停动画';
+ motionControl.textContent=paused?'动画已暂停 · 启用动画':'动画已启用 · 暂停动画';
  motionControl.setAttribute('aria-pressed',String(!paused));
 }
 motionControl.addEventListener('click',()=>{
@@ -38,6 +38,8 @@ motionControl.addEventListener('click',()=>{
  updateControl();
 });
 media.addEventListener('change',updateControl);touchOnly.addEventListener('change',updateControl);updateControl();
+// One introduction cycle on both desktop and touch devices, after artwork loads.
+Promise.all(['concept.png','motion-clean.png','clean-plate.png','notes-quiet.png'].map(name=>new Promise(resolve=>{const image=new Image();image.onload=image.onerror=resolve;image.src='/images/window-cards/'+name}))).then(()=>{if(!disabled()&&!document.hidden&&!document.querySelector('dialog')?.open)states.forEach(s=>{s.play=true;s.t=0;s.amount=0})});
 
 function frame(now){let dt=last?Math.min(70,now-last):0;last=now;if(!document.hidden){dt*=slow?.4:1;for(const s of states){const no=disabled()||document.querySelector("dialog")?.open;if(no){s.amount=0;s.play=false;s.t=0}else{if(s.hover||s.play)s.t+=dt;let on=s.play?s.t<4700:s.hover;let target=on?1:0;s.amount+=Math.sign(target-s.amount)*Math.min(Math.abs(target-s.amount),dt/(on?1400:850));if(s.play&&s.t>6200){s.play=false;s.amount=0}}const a=s.amount*s.amount*(3-2*s.amount),t=s.t/1000;const v=(selector,attr,value)=>s.svg.querySelector(selector)?.setAttribute(attr,value);s.card.style.setProperty('--raise','0px');
 if(s.slug==='about'){v('.door-leaf','transform',`translate(136 0) scale(${1-a*.32} 1) translate(-136 0)`);v('.sunbeam','opacity',a*.16)}
