@@ -1,5 +1,5 @@
 (()=>{
-const ns='http://www.w3.org/2000/svg',media=matchMedia('(prefers-reduced-motion: reduce)'),states=[],live=null;let slow=false,manualReduced=false,allowMotion=false,last=0;const disabled=()=>media.matches||matchMedia('(hover: none)').matches;const img=(clip,src='concept.png')=>`<image href="/images/window-cards/${src}" width="1536" height="1024" ${clip?`clip-path="url(#${clip})"`:''}/>`;const info={about:'门扇轻开 · 地面光带 · 固定镜头',school:'四颗像素流星 · 错峰划过 · 星空感应',work:'吊索收短 · 构件上提 · 轻摆停稳',notes:'书签轻摆 · 像素星簇 · 断续星线'};
+const ns='http://www.w3.org/2000/svg',media=matchMedia('(prefers-reduced-motion: reduce)'),states=[],live=null;let slow=false,manualReduced=false,allowMotion=false,last=0;const touchOnly=matchMedia('(hover: none)');const disabled=()=>manualReduced||(media.matches&&!allowMotion)||touchOnly.matches;const img=(clip,src='concept.png')=>`<image href="/images/window-cards/${src}" width="1536" height="1024" ${clip?`clip-path="url(#${clip})"`:''}/>`;const info={about:'门扇轻开 · 地面光带 · 固定镜头',school:'四颗像素流星 · 错峰划过 · 星空感应',work:'吊索收短 · 构件上提 · 轻摆停稳',notes:'书签轻摆 · 像素星簇 · 断续星线'};
 function shape(id,d){return `<clipPath id="${id}"><path d="${d}"/></clipPath>`}
 for(const [index,card] of [...document.querySelectorAll('.card')].entries()){
 const slug=card.dataset.open,svg=card.querySelector('svg'),prefix='extra-'+slug;
@@ -20,6 +20,25 @@ if(slug==='school'||slug==='notes'){
 const starGroup=document.createElementNS(ns,'g');starGroup.setAttribute('class','responsive-stars');for(let i=0;i<10;i++){const dot=document.createElementNS(ns,'rect');const x=slug==='school'?440+(i*43)%286:1322+(i*29)%118,y=slug==='school'?240+(i*31)%165:536+(i*13)%64;for(const [k,v] of Object.entries({x,y,width:2+i%2,height:2+i%2,fill:'#f8d998',opacity:0}))dot.setAttribute(k,v);starGroup.append(dot)}svg.append(starGroup)}
 card.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'){s.hover=true;if(!s.play)s.t=0}});card.addEventListener('pointerleave',()=>{s.hover=false;s.pointer=false;s.x=s.y=.5});card.addEventListener('blur',()=>s.hover=false);card.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=card.getBoundingClientRect();s.x=(e.clientX-r.left)/r.width;s.y=(e.clientY-r.top)/r.height;s.pointer=true;const pt=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM().inverse());s.sx=pt.x;s.sy=pt.y});
 }
+
+const motionControl=document.createElement('button');
+motionControl.className='motion-control';motionControl.type='button';
+document.querySelector('.intro').append(motionControl);
+try{allowMotion=sessionStorage.getItem('window-motion')==='allow';manualReduced=sessionStorage.getItem('window-motion')==='pause'}catch{}
+function updateControl(){
+ motionControl.hidden=touchOnly.matches;
+ const paused=disabled();
+ motionControl.textContent=paused?(media.matches&&!manualReduced?'系统已减少动态 · 启用本次动画':'动画已暂停 · 启用本次动画'):'动画已启用 · 暂停动画';
+ motionControl.setAttribute('aria-pressed',String(!paused));
+}
+motionControl.addEventListener('click',()=>{
+ const enable=disabled();allowMotion=enable;manualReduced=!enable;
+ states.forEach(s=>{s.t=0;s.amount=0;s.play=enable;s.hover=false;s.pointer=false});
+ try{sessionStorage.setItem('window-motion',enable?'allow':'pause')}catch{}
+ updateControl();
+});
+media.addEventListener('change',updateControl);touchOnly.addEventListener('change',updateControl);updateControl();
+
 function frame(now){let dt=last?Math.min(70,now-last):0;last=now;if(!document.hidden){dt*=slow?.4:1;for(const s of states){const no=disabled()||document.querySelector("dialog")?.open;if(no){s.amount=0;s.play=false;s.t=0}else{if(s.hover||s.play)s.t+=dt;let on=s.play?s.t<4700:s.hover;let target=on?1:0;s.amount+=Math.sign(target-s.amount)*Math.min(Math.abs(target-s.amount),dt/(on?1400:850));if(s.play&&s.t>6200){s.play=false;s.amount=0}}const a=s.amount*s.amount*(3-2*s.amount),t=s.t/1000;const v=(selector,attr,value)=>s.svg.querySelector(selector)?.setAttribute(attr,value);s.card.style.setProperty('--raise','0px');
 if(s.slug==='about'){v('.door-leaf','transform',`translate(136 0) scale(${1-a*.32} 1) translate(-136 0)`);v('.sunbeam','opacity',a*.16)}
 if(s.slug==='school'){s.svg.querySelectorAll('.meteor').forEach((node,i)=>{const m=s.meteors[i],phase=(t-m.delay)/m.duration,u=Math.max(0,Math.min(1,phase));node.setAttribute('transform',`translate(${Math.round((m.x+m.dx*u)/2)*2} ${Math.round((m.y+m.dy*u)/2)*2})`);node.setAttribute('opacity',no||phase<0||phase>1?0:Math.sin(Math.PI*u)*Math.min(1,a*1.6))})}

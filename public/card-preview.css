@@ -4,3 +4,5 @@
 
 /* Approved fixed-camera interactions; no legacy lighting overlays. */
 .glow,.orbit-dot,.paper-stars{display:none!important}.card,.card:hover,.card:focus-visible,.card:active{transform:none!important}.card .art>svg{transform:none!important;transition:none!important}.card{transition:border-color 220ms ease-out}.card:active{border-color:#fff0bd;box-shadow:inset 0 0 0 1px #cab183}.responsive-stars rect,.bridge-zones path{transition:opacity 200ms ease-out}
+
+.motion-control{display:block;margin:14px auto 0;padding:8px 12px;min-height:44px;border:1px solid #515753;color:#cbb891;font:12px/1.5 system-ui;cursor:pointer}.motion-control:hover{border-color:#d9b77d}.motion-control[hidden]{display:none}
