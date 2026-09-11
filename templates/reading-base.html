@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block extra_styles %}<link rel="stylesheet" href="/reading.css?v=1">{% endblock %}
-{% block content %}
+{% block extra_styles %}<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1">{% endblock %}
+{% block content %}<div class="reading-city" aria-hidden="true"></div>
 {% set slug = active if active in ['about','school','work','notes'] else 'notes' %}
 {% set labels = {'about': ('01','IDENTITY','关于我'), 'school': ('02','RESEARCH','学校与科研'), 'work': ('03','PRACTICE','职业与实践'), 'notes': ('04','NOTES','思考与记录')} %}
 {% set label = labels[slug] %}
