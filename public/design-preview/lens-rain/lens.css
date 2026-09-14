@@ -1,3 +1,0 @@
-#lens-glass{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;image-rendering:pixelated}.lens-choices{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;border-top:1px solid #44364d;padding-top:9px;margin-top:8px}.lens-help{color:#cbb5dc!important}.rain-tools [data-level]{display:none}.rain-tools{z-index:5}.rain-tools button{touch-action:manipulation}
-/* Real stacking, no artificial empty rectangles cut from the rain. */
-body{isolation:isolate}header,main{position:relative;z-index:1}.rain-tools{position:relative;z-index:5}.card::before{background:#090b10}
