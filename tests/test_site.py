@@ -81,7 +81,12 @@ class BuiltSiteTests(unittest.TestCase):
             detail = (PUBLIC / slug / 'index.html').read_text(encoding='utf-8')
             self.assertIn('reading-layout', detail)
             self.assertIn('class="reading-return" href="/"', detail)
-        self.assertIn('/notes/why-this-site/', home)
+        recent = sorted(
+            (read_markdown(p) for p in (CONTENT / 'notes').glob('*.md')),
+            key=lambda note: str(note['publishedAt']), reverse=True,
+        )
+        for note in [note for note in recent if not note['draft']][:3]:
+            self.assertIn(f"/notes/{note['slug']}/", home)
 
     def test_all_root_relative_links_exist(self) -> None:
         for path in PUBLIC.rglob("*.html"):
