@@ -129,3 +129,7 @@ python -m http.server 8000 --bind 127.0.0.1 --directory public
 验收：普通 `python build.py`、`python -m unittest discover -s tests -v`；另以 Playwright 运行 `tests/verify-comic.cjs`，通过环境变量 `SITE_URL` 指向本地正式 public 服务或线上域名，`PLAYWRIGHT_PATH` / `CHROME_PATH` 可指定现有运行时。覆盖两模式持久化、四栏目 5 分镜/12 碎片、暂停与跳过、焦点恢复、文章链接、1440/1024/768/390/360 宽度、素材失败与无 JS 路径。
 
 本轮发布使用 `artifacts/publish-comic-mode` 独立 worktree，基于 `origin/main` 创建，保留原始工作区的设计过程和未提交改动。发布仍采用普通构建与 GitHub main → Cloudflare Pages。
+
+
+## iPhone Safari 转场兼容修复
+漫画图片在打开栏目简介时提前加载，并等待图片解码。分镜使用实际 img 元素，移除不必要的 perspective/backface 图层组合；画板明确设置宽高，避免旧版 Safari 的 flex/aspect-ratio 空画板。冷加载期间使用已显示的灰度栏目卡面与加载提示，不再只显示白底；20 秒失败保护与跳过入口仍可直接导航。转场资源版本 `mobile2`。验收增加 WebKit iPhone 触摸、慢加载、画面像素检查和四栏目目标页碎片。
