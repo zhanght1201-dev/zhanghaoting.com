@@ -1,5 +1,10 @@
 # 四扇窗口：已确认设计与编辑手册
 
+## 当前显示模式（2026-09-14）
+
+- 正式网站支持 **漫画 / 像素** 两种显示模式；首次访问默认漫画，所有页面右上角可切换。`localStorage` 的 `four-windows-ui` 保存 `comic` / `pixel`；无有效偏好时回到漫画。公开模式名称统一为“漫画”。
+- 两种模式共用正文、原生简介 dialog、静态生成框架与独立 URL；以下旧视觉规范描述的是像素模式，漫画模式规范见文末。
+
 ## 当前基线
 
 - 网站：https://zhanghaoting.com/；姓名以 `site.yaml` 为准：**张浩厅**，英文 Haoting Zhang。
@@ -107,3 +112,20 @@ python -m http.server 8000 --bind 127.0.0.1 --directory public
 
 ## 水痕优化（已确认发布）
 玻璃撞击由 32 组、5–9 秒间隔改为 22 组、9–13 秒间隔，平均频率约降低 56%。移除周边悬浮白点，改为低对比薄水膜和断续明暗折射轮廓；背景雨势不变。`glass-rain.js?v=rain3`。
+
+
+## 2026-09-14 漫画模式正式接入
+
+漫画首页保留四卡大框架，01 关于我为黄、02 学校与科研为蓝、03 职业与实践为橙、04 思考与记录为青；简介与阅读页采用 C 分镜档案方案，以栏目色配白灰底、斜切封面和章节编号。像素模式保留蓝紫夜景、雨夜、卡内像素互动与 01 展签阅读。
+
+- 漫画背景是三张白灰漫画图，每轮 **7000ms**，依次城市机械、雨城街景、山海探索。分镜错峰滑切，保留定格时间；打开简介、转场、切换像素、后台及手动暂停时不推进。
+- 首页悬停/键盘聚焦使用跨格拟声字与物件动作，点击仍立即打开简介；触屏第一次点击直接进入。暂停按钮同时控制漫画背景、悬停效果与进入转场。
+- 简介中进入栏目或文章时，五个不规则分镜逐一拼成完整漫画页；随后跳转原有静态 URL，在目标页用十二块不规则碎片撕开并显示正文。转场标题与漫画页都保持白灰，主题色不进入漫画故事图。Escape/跳过、图片失败及超时均可继续；无 JS 时链接直接导航。
+- 最终漫画页选择：关于我 03，学校与科研 B，职业与实践 B，思考与记录 B。`static/images/comic/story-*-final.png` 为对应确认的完整图；不以设计中的虚构叙事替换任何真实经历正文。
+- 素材来源为本轮用户已确认的 `artifacts/comic-slide-preview` 预览成果：卡面 `reference.png`、三幅 `background*.png` 与四幅最终漫画页。正式资源均复制到 `static/images/comic/`；生产不依赖预览服务、绝对本机路径、sections.json 或 hash 模拟路由。
+
+新增入口：`templates/partials/ui-head.html`、`ui-switch.html`、`comic-art.html`、`comic-background.html`；`static/ui-mode.js` 在首次绘制前恢复风格。`comic-ui.css` 只在 `html[data-ui=comic]` 下覆盖已有视觉；`comic-home.js` 控制 7 秒背景，`comic-fx.*` 控制跨格反馈，`comic-transition.*` 控制分镜与撕页。过渡使用一次性 `sessionStorage` 数据（路径、栏目、时间），不改 URL，也不缓存正文。
+
+验收：普通 `python build.py`、`python -m unittest discover -s tests -v`；另以 Playwright 运行 `tests/verify-comic.cjs`，通过环境变量 `SITE_URL` 指向本地正式 public 服务或线上域名，`PLAYWRIGHT_PATH` / `CHROME_PATH` 可指定现有运行时。覆盖两模式持久化、四栏目 5 分镜/12 碎片、暂停与跳过、焦点恢复、文章链接、1440/1024/768/390/360 宽度、素材失败与无 JS 路径。
+
+本轮发布使用 `artifacts/publish-comic-mode` 独立 worktree，基于 `origin/main` 创建，保留原始工作区的设计过程和未提交改动。发布仍采用普通构建与 GitHub main → Cloudflare Pages。

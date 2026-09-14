@@ -1,0 +1,126 @@
+/* Both renderers share the same content, links and native dialog. */
+.comic-only{display:none!important}
+.ui-switch{display:flex;flex:none;border:1px solid #85818a;border-radius:30px;padding:3px;background:#100d18;color:#eee;gap:2px;align-items:center;line-height:1}
+.ui-switch[hidden]{display:none}
+.ui-switch button{border:0;background:transparent;color:inherit;border-radius:24px;padding:9px 16px;font:14px/1.2 system-ui;min-height:38px;cursor:pointer;white-space:nowrap}
+.ui-switch button[aria-pressed=true]{background:#e4d5ed;color:#17121d}
+.ui-switch button:focus-visible{outline:3px solid #278bca;outline-offset:3px}
+.window-home>header{gap:18px;flex-wrap:wrap;height:auto;min-height:90px;padding-top:16px;padding-bottom:16px}
+.window-home>header>nav{margin-left:auto}
+.site-header{gap:18px;flex-wrap:wrap}.site-header .ui-switch{margin-left:auto}
+html[data-ui=comic]{--display:"Microsoft YaHei",system-ui,sans-serif;--paper:#fafafa;--ink:#17191b;--muted:#60656b;--line:#c9cdd0;--accent:#ffc817;--accent-soft:#f4f4f4;scroll-behavior:auto}
+html[data-ui=comic] .comic-only{display:block!important}
+html[data-ui=comic] .pixel-only,html[data-ui=comic] .art>svg:not(.comic-art),html[data-ui=comic] .reading-art>svg:not(.comic-art){display:none!important}
+html[data-ui=comic] body{background:#fafafa;color:#17191b;font-family:"Microsoft YaHei",system-ui,sans-serif}
+html[data-ui=comic] body::before,html[data-ui=comic] #city,html[data-ui=comic] .city-shade,html[data-ui=comic] #lens-glass,html[data-ui=comic] .reading-city{display:none!important}
+html[data-ui=comic] .ui-switch{background:#ffffffea;color:#111;border-color:#222}
+html[data-ui=comic] .ui-switch button[aria-pressed=true]{background:#111;color:#fff}
+html[data-ui=comic] .about,html[data-ui=comic] [data-comic-section=about],html[data-ui=comic] dialog[data-section=about]{--accent:#ffc817}
+html[data-ui=comic] .school,html[data-ui=comic] [data-comic-section=school],html[data-ui=comic] dialog[data-section=school]{--accent:#178be1}
+html[data-ui=comic] .work,html[data-ui=comic] [data-comic-section=work],html[data-ui=comic] dialog[data-section=work]{--accent:#ff921b}
+html[data-ui=comic] .notes,html[data-ui=comic] [data-comic-section=notes],html[data-ui=comic] dialog[data-section=notes]{--accent:#20b6ae}
+.comic-background{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.comic-panel{position:absolute;inset:0;background:white}
+.comic-strip{position:absolute;inset:-12%;background:url('/images/comic/background.png') center/cover;will-change:transform}
+.comic-panel.p0{clip-path:polygon(0 0,58% 0,40% 53%,0 70%)}.comic-panel.p1{clip-path:polygon(58.4% 0,100% 0,100% 32%,40.6% 52.7%)}.comic-panel.p2{clip-path:polygon(0 70.5%,64% 43.6%,74% 100%,0 100%)}.comic-panel.p3{clip-path:polygon(64.4% 43.4%,100% 32.5%,100% 100%,74.5% 100%)}
+.p1 .comic-strip{background-position:80% 15%}.p2 .comic-strip{background-position:15% 90%}.p3 .comic-strip{background-position:95% 70%}
+.comic-veil{position:absolute;inset:0;background:#ffffff5c}.comic-halo{position:absolute;inset:0;background:radial-gradient(ellipse 35% 20% at 50% 17%,#fff 15%,#ffffffdc 58%,transparent 100%)}
+html[data-ui=comic] .window-home>header,html[data-ui=comic] .window-home>main{position:relative;z-index:1;width:94%;max-width:1450px;margin:auto;padding-left:0;padding-right:0}
+html[data-ui=comic] .window-home>header{padding:20px 1%;border:0;display:flex}
+html[data-ui=comic] .window-home .brand{font:900 28px/1.4 "Microsoft YaHei",sans-serif;color:#111;letter-spacing:-1px}
+html[data-ui=comic] .window-home>header>nav{font:12px/1.5 system-ui;gap:16px;color:#333}
+html[data-ui=comic] .window-home nav a,html[data-ui=comic] .window-home nav button{color:#333;font-family:inherit}
+html[data-ui=comic] .window-home .intro{text-align:center;padding:10px 0 28px;color:#333}
+html[data-ui=comic] .window-home .intro>p{font:11px/1.5 system-ui;letter-spacing:3px;color:#666}
+html[data-ui=comic] .window-home .intro h1{font:900 clamp(44px,5.4vw,80px)/1.2 SimSun,serif;letter-spacing:.06em;margin:10px 0 18px;color:#080808}
+html[data-ui=comic] .window-home .intro>span{font:12px/1.5 system-ui;color:#555;letter-spacing:.13em}
+html[data-ui=comic] .motion-control{background:#ffffffc9;color:#555;border-color:#aeb1b4;border-radius:20px;font-size:11px;margin:12px auto 0;min-height:32px;padding:5px 12px}
+html[data-ui=comic] .window-home .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;max-width:none}
+html[data-ui=comic] .window-home .card{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:12px;border:3px solid #111;border-radius:3px;clip-path:none;padding:0 12px 18px;background:#fcfbf8;box-shadow:5px 7px #111;color:#111;overflow:hidden;text-decoration:none}
+html[data-ui=comic] .window-home .card::before,html[data-ui=comic] .window-home .card::after,html[data-ui=comic] .window-home .card-top,html[data-ui=comic] .window-home .card-bottom{display:none}
+html[data-ui=comic] .window-home .card .art{grid-column:1/-1;width:calc(100% + 24px);margin:0 -12px 19px;height:auto;aspect-ratio:344/570;background:white;overflow:hidden;clip-path:none}
+html[data-ui=comic] .comic-art{width:100%;height:100%;display:block;image-rendering:auto;overflow:hidden}
+html[data-ui=comic] .window-home .comic-number{grid-column:1;grid-row:2/4;align-self:center;font:700 clamp(35px,4.5vw,66px)/1 Georgia,serif;padding-right:12px;border-right:1px solid #777;letter-spacing:-3px}
+html[data-ui=comic] .window-home .card h2{grid-column:2;grid-row:2;align-self:end;font:900 clamp(15px,1.8vw,26px)/1.35 SimSun,serif;margin:0 0 5px;white-space:nowrap;color:#111}
+html[data-ui=comic] .window-home .card .en{grid-column:2;grid-row:3;color:#333;font:10px/1.5 system-ui;letter-spacing:.14em;margin:0}
+html[data-ui=comic] .window-home .card:hover,html[data-ui=comic] .window-home .card:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+html[data-ui=comic] .window-home footer{color:#555;font:12px/1.6 system-ui;padding:30px 0;background:transparent;border:0}
+html[data-ui=comic] dialog{width:min(850px,92vw);height:fit-content;max-height:90dvh;overflow:auto;border:3px solid #111;clip-path:none;background:white;color:#17191b;box-shadow:8px 10px #111;padding:0}
+html[data-ui=comic] dialog::before{display:none}html[data-ui=comic] dialog::backdrop{background:#e4e8edbb;backdrop-filter:blur(2px)}
+html[data-ui=comic] .dialog-toolbar{height:auto;min-height:58px;display:flex;flex-wrap:wrap;padding:12px 18px;background:white;border-bottom:2px solid #111;gap:12px}
+html[data-ui=comic] .dialog-toolbar button{font:13px system-ui;color:#111}
+html[data-ui=comic] .dialog-toolbar nav{display:flex;gap:10px;flex-wrap:wrap;margin:0;font:12px system-ui}
+html[data-ui=comic] .dialog-toolbar nav a[aria-current]{background:var(--accent);color:#111;padding:6px;transform:skew(-6deg)}
+html[data-ui=comic] .summary:not([hidden]){display:block;height:auto;overflow:visible}
+html[data-ui=comic] .summary>.detail-art{display:none}
+.comic-cover{height:260px;position:relative;overflow:hidden;background:#eee;clip-path:polygon(0 0,100% 0,100% 83%,0 100%)}
+html[data-ui=comic] .comic-cover .comic-art{position:absolute;inset:0 0 0 30%;width:70%;height:100%;filter:grayscale(1)}
+.comic-cover .comic-art{object-fit:cover}
+.comic-issue{position:absolute;inset:0 auto 0 0;width:37%;clip-path:polygon(0 0,83% 0,100% 100%,0 100%);background:var(--accent);background-image:radial-gradient(#0003 .8px,transparent .8px);background-size:5px 5px;padding:35px 28px}
+.comic-issue b{display:block;font:italic 900 115px/1 Impact,"Arial Black",sans-serif;color:white;-webkit-text-stroke:3px #111;text-shadow:5px 5px #111}
+.comic-issue span{display:block;font:italic 900 12px system-ui;letter-spacing:.1em;margin-top:16px}
+html[data-ui=comic] .summary .copy{display:block;padding:15px 34px 32px;background:white;overflow:visible}
+html[data-ui=comic] .summary .copy h2{font:italic 900 36px/1.35 "Microsoft YaHei",sans-serif;color:#111;margin:8px 0 14px}
+html[data-ui=comic] .summary .copy p{color:#555;font:15px/1.9 system-ui}
+html[data-ui=comic] .summary .copy .eyebrow{color:#555!important;font:12px/1.5 monospace!important}
+html[data-ui=comic] .summary .copy li{border-color:#ddd}html[data-ui=comic] .summary .copy li a{color:#333}
+html[data-ui=comic] .summary .details{display:inline-block;margin-top:20px;font:900 15px/1.5 system-ui;padding:12px 22px;background:var(--accent);border:2px solid #111;color:#111;box-shadow:3px 4px #111;transform:skew(-6deg)}
+/* C: slanted chapter panels, grayscale illustrations, one accent per section. */
+html[data-ui=comic] body:has([data-reading]){--paper:#fafafa;--ink:#222;--muted:#60656b;--line:#c9cdd0;--accent-soft:#f1f2f3;background:linear-gradient(#ffffffdb,#ffffffeb),url('/images/comic/background.png') center/cover fixed;color:#222}
+html[data-ui=comic] body .site-header{background:#ffffffed;border-color:#c4c8cd}
+html[data-ui=comic] body .brand,html[data-ui=comic] body .site-nav a{color:#222;font-family:system-ui}
+html[data-ui=comic] body .site-nav a[aria-current]{color:#111;text-decoration:underline;text-underline-offset:6px}
+html[data-ui=comic] body:has([data-reading]) #main{max-width:1420px;padding:30px 4% 55px}
+html[data-ui=comic] .reading-layout{grid-template-columns:250px minmax(0,1fr);gap:0;border:3px solid #111;background:white;box-shadow:7px 8px #111}
+html[data-ui=comic] .reading-aside{top:0;max-height:100dvh;background:#f0f1f3;border-right:3px solid #111;padding:0 0 22px}
+html[data-ui=comic] .reading-return{font:12px/1.6 system-ui;color:#333;padding:15px 18px;margin:0}
+.comic-sidebar-issue{padding:8px 20px 18px;background:var(--accent);clip-path:polygon(0 0,100% 0,100% 87%,0 100%)}
+.comic-sidebar-issue b{font:italic 900 62px/1.2 Impact,"Arial Black",sans-serif;color:white;-webkit-text-stroke:2px #111;text-shadow:3px 3px #111;margin-right:14px}
+.comic-sidebar-issue span{font:900 11px system-ui}
+html[data-ui=comic] .reading-art{height:225px;margin:0;border:0;border-bottom:4px solid #111;clip-path:polygon(0 0,100% 0,100% 94%,0 100%);background:white}
+html[data-ui=comic] .reading-art .comic-art{filter:grayscale(1)}
+html[data-ui=comic] .reading-label{color:#555;padding:0 18px;margin:14px 0;font:11px monospace}
+html[data-ui=comic] .reading-toc,html[data-ui=comic] .reading-sections{padding:14px 18px;border-color:#c4c8cd}
+html[data-ui=comic] .reading-toc p,html[data-ui=comic] .reading-toc a,html[data-ui=comic] .reading-toc a small,html[data-ui=comic] .reading-sections a{font-family:system-ui;color:#40454a}
+html[data-ui=comic] .reading-toc a[aria-current],html[data-ui=comic] .reading-sections a[aria-current]{color:#111;font-weight:700;background:color-mix(in srgb,var(--accent) 24%,white)}
+html[data-ui=comic] .reading-content{max-width:none;border:0;clip-path:none;background:white;padding:32px 40px 50px}
+html[data-ui=comic] .reading-content::before{display:none}
+html[data-ui=comic] .reading-kicker{color:#555;border-color:var(--accent);font:12px/1.6 monospace}
+html[data-ui=comic] .reading-content h1{font:italic 900 clamp(28px,3vw,42px)/1.4 "Microsoft YaHei",sans-serif;color:#111;background:color-mix(in srgb,var(--accent) 20%,white);border-left:6px solid var(--accent);padding:15px 30px 15px 18px;clip-path:polygon(0 0,96% 0,100% 50%,96% 100%,0 100%)}
+html[data-ui=comic] .reading-content .page-summary,html[data-ui=comic] .reading-content .article-meta,html[data-ui=comic] .reading-content .note-excerpt{color:#5b6167}
+html[data-ui=comic] .reading-content .prose{color:#353a40;counter-reset:chapter;overflow-wrap:anywhere;max-width:none}
+html[data-ui=comic] .reading-content .prose h2{font:700 22px/1.6 system-ui;color:#111;border-bottom:1px solid #bec3c8;padding-bottom:10px}
+html[data-ui=comic] .reading-content .prose h2:before{counter-increment:chapter;content:counter(chapter,decimal-leading-zero);display:inline-block;background:var(--accent);padding:0 7px;margin-right:13px;color:#111;font:italic 22px/1.5 Impact,sans-serif;transform:skew(-7deg)}
+html[data-ui=comic] .reading-content .prose h3,html[data-ui=comic] .reading-content .prose strong{color:#222;font-family:system-ui}
+html[data-ui=comic] .reading-content .prose a,html[data-ui=comic] .reading-content .back-link{color:#226078}
+html[data-ui=comic] .reading-content .prose blockquote{background:#f3f4f5;color:#555;border-left:4px solid var(--accent)}
+html[data-ui=comic] .reading-content .prose pre,html[data-ui=comic] .reading-content .prose code{background:#f0f2f4;color:#333;border-color:#c4c8cd}
+html[data-ui=comic] .reading-content .prose th{background:#e9edef;color:#333}
+html[data-ui=comic] .reading-content .prose th,html[data-ui=comic] .reading-content .prose td{border-color:#c4c8cd}
+html[data-ui=comic] .reading-content .note-card,html[data-ui=comic] .reading-content .work-card,html[data-ui=comic] .reading-content .source-card{background:white;color:#333;clip-path:none;border:2px solid #111;box-shadow:3px 4px #111}
+html[data-ui=comic] .reading-content .note-title,html[data-ui=comic] .reading-content .work-title{color:#111;font-family:system-ui}
+html[data-ui=comic] .reading-content .filter-button{background:white;border-color:#555;color:#333}
+html[data-ui=comic] .reading-content .filter-button.is-active{background:var(--accent);color:#111;border-color:#111}
+html[data-ui=comic] .reading-content .tag-list span{background:#edf0f2;color:#4b535b}
+html[data-ui=comic] .reading-end{font-family:system-ui;color:#333;border-color:#bbb}
+html[data-ui=comic] body .site-footer{background:#ffffffd9;color:#60656b;border-color:#c9cdd0}
+html[data-ui=comic] a:focus-visible,html[data-ui=comic] button:focus-visible{outline:3px solid #2587ba;outline-offset:4px}
+@media(max-width:1100px){.window-home>header>nav{order:3;width:100%;justify-content:center}.window-home>header .ui-switch{margin-left:auto}html[data-ui=comic] .window-home>header>nav{margin:0}.site-header .ui-switch{order:0}html[data-ui=comic] .reading-content{padding:25px}html[data-ui=comic] .reading-layout{grid-template-columns:210px minmax(0,1fr)}}
+@media(max-width:800px){html[data-ui=comic] .window-home .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}html[data-ui=comic] .window-home>main{width:90%}html[data-ui=comic] .window-home .card h2{font-size:clamp(17px,2.8vw,25px)}html[data-ui=comic] .window-home .comic-number{font-size:clamp(36px,7vw,60px)}html[data-ui=comic] .reading-layout{display:block}html[data-ui=comic] .reading-aside{position:static;max-height:none;border-right:0;border-bottom:3px solid #111;padding-bottom:0}html[data-ui=comic] .reading-art,html[data-ui=comic] .reading-label,html[data-ui=comic] .reading-sections{display:none}html[data-ui=comic] .comic-sidebar-issue{padding:8px 18px 12px}html[data-ui=comic] .comic-sidebar-issue b{font-size:42px}html[data-ui=comic] .reading-toc{margin:0}html[data-ui=comic] .reading-toc [data-toc]{display:flex;flex-wrap:wrap;gap:4px 16px}}
+@media(max-width:650px){.window-home>header{display:flex;align-items:center}.ui-switch button{padding:7px 12px;font-size:13px}.site-header .ui-switch{order:0;margin-left:auto}.site-header .site-nav{order:4;width:100%}html[data-ui=comic] .window-home .brand{font-size:22px}html[data-ui=comic] .window-home>header{width:90%;padding:18px 0;gap:12px}html[data-ui=comic] .window-home>header>nav{gap:9px;font-size:11px}html[data-ui=comic] .window-home>header>nav a{font-size:11px}html[data-ui=comic] .window-home .intro>span{font-size:10px;letter-spacing:0}html[data-ui=comic] .window-home .intro>p{font-size:9px;letter-spacing:1px}html[data-ui=comic] .window-home .intro{padding:5px 0 24px}html[data-ui=comic] .window-home .card{padding:0 8px 13px;column-gap:7px}html[data-ui=comic] .window-home .card .art{width:calc(100% + 16px);margin:0 -8px 13px}html[data-ui=comic] .window-home .comic-number{font-size:35px;padding-right:7px;letter-spacing:-2px}html[data-ui=comic] .window-home .card h2{font-size:15px}html[data-ui=comic] .window-home .card .en{font-size:8px;letter-spacing:.06em}html[data-ui=comic] .window-home footer{font-size:10px}.comic-strip{background-size:auto 120%}.comic-cover{height:205px}.comic-issue{padding:30px 12px}.comic-issue b{font-size:80px}.comic-issue span{font-size:10px}html[data-ui=comic] .summary .copy{padding:15px 20px 25px}html[data-ui=comic] .summary .copy h2{font-size:28px}html[data-ui=comic] .dialog-toolbar nav{gap:8px;font-size:11px}html[data-ui=comic] .reading-content{padding:24px 18px}html[data-ui=comic] .reading-content .prose h2{font-size:20px}html[data-ui=comic] .reading-content h1{font-size:28px}html[data-ui=comic] body:has([data-reading]) #main{padding:20px 4% 40px}html[data-ui=comic] .reading-content .filter-bar{flex-wrap:wrap}}
+
+html[data-ui=comic] .window-home .intro p,html[data-ui=comic] .window-home .intro>span,html[data-ui=comic] .window-home footer{text-shadow:none}
+html[data-ui=comic] .window-home .card h2,html[data-ui=comic] .window-home .card .en{text-align:left}
+html[data-ui=comic] .window-home .card .art{border:0}
+@media(max-width:380px){html[data-ui=comic] .window-home .card h2{font-size:13.5px}html[data-ui=comic] .window-home .comic-number{font-size:30px}html[data-ui=comic] .window-home .cards{gap:16px}}
+
+html[data-ui=comic] .menu-toggle{font:14px/1.5 system-ui;color:#222;border-color:#777;background:white}
+html[data-ui=comic] .site-nav a[aria-current]{border-color:#333}
+html[data-ui=comic] .reading-content .note-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;border:0}
+html[data-ui=comic] .reading-content .note-row:not([hidden]){display:block;background:white;border:2px solid #111;box-shadow:3px 4px #111;padding:20px}
+html[data-ui=comic] .reading-content .note-row h3{font:700 20px/1.5 system-ui;color:#111;margin:18px 0 12px}
+html[data-ui=comic] .reading-content .note-meta{color:#444;font:11px/1.7 system-ui;letter-spacing:0}
+html[data-ui=comic] .reading-content .note-meta>span{display:inline-block;background:var(--accent);padding:2px 9px;transform:skew(-6deg);color:#111;margin-right:10px}
+html[data-ui=comic] .reading-content .note-row p{color:#555;font-size:14px}
+html[data-ui=comic] .reading-content .read-time{color:#666;font-size:11px;display:block;margin-top:14px}
+@media(max-width:1000px){html[data-ui=comic] .reading-content .note-list{grid-template-columns:1fr}}

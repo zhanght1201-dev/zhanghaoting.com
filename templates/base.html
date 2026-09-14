@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.language }}">
+<html lang="{{ site.language }}" data-ui="comic">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/styles.css?v={{ site.assetVersion }}" />
     <link rel="stylesheet" href="/archive.css?v={{ site.assetVersion }}" />
     {% block extra_styles %}{% endblock %}
+    {% include "partials/ui-head.html" %}
     <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
     <meta property="og:title" content="{{ page_title }}" />
     <meta property="og:description" content="{{ page_description }}" />
@@ -31,6 +32,7 @@
         <a href="{{ item.url }}" {% if active == item.slug %}aria-current="page"{% endif %}>{{ item.title }}</a>
         {% endfor %}
       </nav>
+      {% include "partials/ui-switch.html" %}
     </header>
 
     <main id="main" tabindex="-1">{% block content %}{% endblock %}</main>

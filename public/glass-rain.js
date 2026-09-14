@@ -24,6 +24,6 @@ function draw(){ctx.clearRect(0,0,W,H);if(!enabled||document.querySelector('dial
  ctx.restore();
 
 }ctx.restore();ctx.globalAlpha=1;}
-function frame(now){const dt=Math.min(.07,(now-(last||now))/1000);last=now;if(!document.hidden&&document.querySelector('.motion-control')?.getAttribute('aria-pressed')!=='false'&&!document.querySelector('dialog')?.open){t+=dt;draw()}requestAnimationFrame(frame)}resize();requestAnimationFrame(frame);
+function frame(now){const dt=Math.min(.07,(now-(last||now))/1000);last=now;if(document.documentElement.dataset.ui==='pixel'&&!document.hidden&&document.querySelector('.motion-control')?.getAttribute('aria-pressed')!=='false'&&!document.querySelector('dialog')?.open){t+=dt;draw()}requestAnimationFrame(frame)}resize();requestAnimationFrame(frame);
 new MutationObserver(()=>{if(document.querySelector('dialog').open)ctx.clearRect(0,0,W,H)}).observe(document.querySelector('dialog'),{attributes:true,attributeFilter:['open']});
 })();

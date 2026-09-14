@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-ui="comic">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,7 +11,10 @@
     <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles.css?v=20260905-night-archive-1" />
     <link rel="stylesheet" href="/archive.css?v=20260905-night-archive-1" />
-    <meta property="og:type" content="website" />
+<script src="/ui-mode.js?v=comic1"></script>
+<link rel="stylesheet" href="/comic-ui.css?v=comic1">
+<link rel="stylesheet" href="/comic-transition.css?v=comic1">
+<script src="/comic-transition.js?v=comic1" defer></script>    <meta property="og:type" content="website" />
     <meta property="og:title" content="页面未找到 · 张浩厅" />
     <meta property="og:description" content="请求的页面不存在。" />
     <meta property="og:url" content="https://zhanghaoting.com/404.html" />
@@ -31,7 +34,7 @@
         <a href="/work/" >职业与实践</a>
         <a href="/notes/" >思考与记录</a>
       </nav>
-    </header>
+<div class="ui-switch" role="group" aria-label="显示风格" hidden><button type="button" data-ui-mode="pixel" aria-pressed="false">像素</button><button type="button" data-ui-mode="comic" aria-pressed="true">漫画</button></div>    </header>
 
     <main id="main" tabindex="-1"><section class="not-found">
   <p class="eyebrow">404 / NOT FOUND</p>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-ui="comic">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,7 +11,10 @@
     <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles.css?v=20260905-night-archive-1" />
     <link rel="stylesheet" href="/archive.css?v=20260905-night-archive-1" />
-<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1">    <meta property="og:type" content="website" />
+<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1"><script src="/ui-mode.js?v=comic1"></script>
+<link rel="stylesheet" href="/comic-ui.css?v=comic1">
+<link rel="stylesheet" href="/comic-transition.css?v=comic1">
+<script src="/comic-transition.js?v=comic1" defer></script>    <meta property="og:type" content="website" />
     <meta property="og:title" content="关于我 · 张浩厅" />
     <meta property="og:description" content="从当前身份、关注的问题和做事方式出发，认识一个仍在形成中的我。" />
     <meta property="og:url" content="https://zhanghaoting.com/about/" />
@@ -31,10 +34,10 @@
         <a href="/work/" >职业与实践</a>
         <a href="/notes/" >思考与记录</a>
       </nav>
-    </header>
+<div class="ui-switch" role="group" aria-label="显示风格" hidden><button type="button" data-ui-mode="pixel" aria-pressed="false">像素</button><button type="button" data-ui-mode="comic" aria-pressed="true">漫画</button></div>    </header>
 
     <main id="main" tabindex="-1"><div class="reading-city" aria-hidden="true"></div>
-<div class="reading-layout" data-reading><aside class="reading-aside"><a class="reading-return" href="/">← 返回四扇窗口</a><div class="reading-art" aria-hidden="true"><svg viewBox="40 210 329 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><clipPath id="scene-reading-about"><rect x="43" y="214" width="323" height="463"/></clipPath></defs><image href="/images/window-cards/concept.png" width="1536" height="1024" clip-path="url(#scene-reading-about)"/></svg><span class="glow"></span></div><p class="reading-label">01 / IDENTITY</p><nav class="reading-toc" aria-label="本页目录" hidden><p>本页目录</p><div data-toc></div></nav><nav class="reading-sections" aria-label="其他栏目"><a href="/about/" aria-current="page">01 关于我</a><a href="/school/" >02 学校与科研</a><a href="/work/" >03 职业与实践</a><a href="/notes/" >04 思考与记录</a></nav></aside><div class="reading-content"><p class="reading-kicker">01 / IDENTITY</p><header class="page-hero">
+<div class="reading-layout" data-reading data-comic-section="about"><aside class="reading-aside"><a class="reading-return" href="/">← 返回四扇窗口</a><div class="comic-sidebar-issue comic-only" aria-hidden="true"><b>01</b><span>IDENTITY</span></div><div class="reading-art" aria-hidden="true"><svg viewBox="40 210 329 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><clipPath id="scene-reading-about"><rect x="43" y="214" width="323" height="463"/></clipPath></defs><image href="/images/window-cards/concept.png" width="1536" height="1024" clip-path="url(#scene-reading-about)"/></svg><span class="glow"></span><svg class="comic-art comic-only" viewBox="36 245 344 570" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><image href="/images/comic/reference.png" width="1536" height="1024"/></svg></div><p class="reading-label">01 / IDENTITY</p><nav class="reading-toc" aria-label="本页目录" hidden><p>本页目录</p><div data-toc></div></nav><nav class="reading-sections" aria-label="其他栏目"><a href="/about/" aria-current="page">01 关于我</a><a href="/school/" >02 学校与科研</a><a href="/work/" >03 职业与实践</a><a href="/notes/" >04 思考与记录</a></nav></aside><div class="reading-content"><p class="reading-kicker">01 / IDENTITY</p><header class="page-hero">
   <p class="eyebrow">ABOUT</p>
   <h1>关于我</h1>
   <p class="page-summary">从当前身份、关注的问题和做事方式出发，认识一个仍在形成中的我。</p>
