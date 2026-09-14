@@ -5,7 +5,7 @@ const extraRain=Array.from({length:180},()=>({x:rand(),y:rand(),speed:60+rand()*
 const naturalDrops=Array.from({length:660},(_,i)=>({x:rand(),phase:rand(),depth:i%10<6?0:i%10<9?1:2,variation:rand(),land:.88+rand()*.115}));
 function drawNaturalRain(ox,oy,dw,dh){
  const breeze=.065+.028*Math.sin(t*.22),strong=document.body.dataset.rainStrength!=='natural',count=strong?(W<500?330:660):(W<500?210:420);
- ctx.save();ctx.beginPath();ctx.rect(0,60,W*.20,H-60);ctx.rect(W*.8,60,W*.2,H-60);ctx.rect(0,H*.9,W,H*.1);ctx.clip();
+ ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
  for(const d of naturalDrops.slice(0,count)){
   const speed=[95,155,230][d.depth]*(.85+d.variation*.3),ground=oy+dh*d.land,span=Math.max(120,ground+20),cycle=span/speed+.48,phase=(t+d.phase*cycle)%cycle,fall=span/speed;
   const landX=((d.x*W+Math.sin(t*.12+d.phase*6)*2)%W+W)%W;
