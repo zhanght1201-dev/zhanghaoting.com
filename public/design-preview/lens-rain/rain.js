@@ -2,16 +2,16 @@
 const c=document.querySelector('#city'),ctx=c.getContext('2d'),img=new Image();let W,H,t=0,last=0,acc=0,mode=2,paused=false,ready=false;const layers=[];let enhanced=true,realRain=true;
 let seed=71;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};const rain=Array.from({length:180},()=>({x:rand(),y:rand(),speed:35+rand()*45,length:3+rand()*7}));const ripples=Array.from({length:22},()=>({x:rand(),y:.87+rand()*.12,p:rand()*3}));
 const extraRain=Array.from({length:180},()=>({x:rand(),y:rand(),speed:60+rand()*50,length:6+rand()*9}));
-const naturalDrops=Array.from({length:420},(_,i)=>({x:rand(),phase:rand(),depth:i%10<6?0:i%10<9?1:2,variation:rand(),land:.88+rand()*.115}));
+const naturalDrops=Array.from({length:660},(_,i)=>({x:rand(),phase:rand(),depth:i%10<6?0:i%10<9?1:2,variation:rand(),land:.88+rand()*.115}));
 function drawNaturalRain(ox,oy,dw,dh){
- const breeze=.065+.028*Math.sin(t*.22),count=W<500?210:420;
+ const breeze=.065+.028*Math.sin(t*.22),strong=document.body.dataset.rainStrength!=='natural',count=strong?(W<500?330:660):(W<500?210:420);
  ctx.save();ctx.beginPath();ctx.rect(0,60,W*.20,H-60);ctx.rect(W*.8,60,W*.2,H-60);ctx.rect(0,H*.9,W,H*.1);ctx.clip();
  for(const d of naturalDrops.slice(0,count)){
   const speed=[95,155,230][d.depth]*(.85+d.variation*.3),ground=oy+dh*d.land,span=Math.max(120,ground+20),cycle=span/speed+.48,phase=(t+d.phase*cycle)%cycle,fall=span/speed;
   const landX=((d.x*W+Math.sin(t*.12+d.phase*6)*2)%W+W)%W;
   if(phase<fall){const y=-20+phase*speed,x=landX-(ground-y)*breeze,len=[3,5,9][d.depth]+d.variation*3;
    ctx.fillStyle=d.depth===0?'#728398':'#a8b9cb';
-   for(let k=0;k<len;k++){const tail=1-k/len;ctx.globalAlpha=[.13,.22,.32][d.depth]*(.22+.78*tail)*(.8+.2*d.variation);ctx.fillRect(Math.round(x-k*breeze),Math.round(y-k),1,1)}
+   for(let k=0;k<len;k++){const tail=1-k/len;ctx.globalAlpha=(strong?[.22,.35,.48]:[.13,.22,.32])[d.depth]*(.22+.78*tail)*(.8+.2*d.variation);ctx.fillRect(Math.round(x-k*breeze),Math.round(y-k),1,1)}
   }else{
    const age=phase-fall;if(age<.16){ctx.globalAlpha=.3*(1-age/.16);ctx.fillStyle='#b6c4d2';const spread=age*15,lift=Math.sin(age/.16*Math.PI)*2;ctx.fillRect(Math.round(landX-spread),Math.round(ground-lift),1,1);ctx.fillRect(Math.round(landX+spread),Math.round(ground-lift*.7),1,1)}
    if(d.depth>0){const radius=1+age*11;ctx.fillStyle='#8e9eaf';ctx.globalAlpha=.23*(1-age/.48);for(let j=0;j<18;j++){if((j+d.depth)%5===0)continue;const a=j/18*Math.PI*2;ctx.fillRect(Math.round(landX+Math.cos(a)*radius),Math.round(ground+Math.sin(a)*radius*.23),1,1)}}
