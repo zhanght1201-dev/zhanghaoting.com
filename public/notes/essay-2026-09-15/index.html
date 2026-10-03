@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN" data-ui="comic">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1218" />
+    <title>随笔 · 2026.9.15 · 张浩厅</title>
+    <meta name="description" content="从文本预测出发，尝试宏观理解 Transformer、参数矩阵与自注意力，并把它放回神经网络的一般学习框架中。" />
+    <link rel="canonical" href="https://zhanghaoting.com/notes/essay-2026-09-15/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css?v=20260905-night-archive-1" />
+    <link rel="stylesheet" href="/archive.css?v=20260905-night-archive-1" />
+<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1"><script src="/ui-mode.js?v=comic1"></script>
+<link rel="stylesheet" href="/comic-ui.css?v=comic1">
+<link rel="stylesheet" href="/comic-transition.css?v=mobile2">
+<script src="/comic-transition.js?v=mobile2" defer></script>    <meta property="og:type" content="article" />
+    <meta property="og:title" content="随笔 · 2026.9.15 · 张浩厅" />
+    <meta property="og:description" content="从文本预测出发，尝试宏观理解 Transformer、参数矩阵与自注意力，并把它放回神经网络的一般学习框架中。" />
+    <meta property="og:url" content="https://zhanghaoting.com/notes/essay-2026-09-15/" />
+  </head>
+  <body class="is-inner" data-section="notes">
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true">ZH</span>
+        <span class="brand-name">/ 张浩厅</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>菜单 <span aria-hidden="true">☰</span></button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航">
+        <a href="/" >首页</a>
+        <a href="/about/" >关于</a>
+        <a href="/school/" >学校与科研</a>
+        <a href="/work/" >职业与实践</a>
+        <a href="/notes/" aria-current="page">思考与记录</a>
+      </nav>
+<div class="ui-switch" role="group" aria-label="显示风格" hidden><button type="button" data-ui-mode="pixel" aria-pressed="false">像素</button><button type="button" data-ui-mode="comic" aria-pressed="true">漫画</button></div>    </header>
+
+    <main id="main" tabindex="-1"><div class="reading-city" aria-hidden="true"></div>
+<div class="reading-layout" data-reading data-comic-section="notes"><aside class="reading-aside"><a class="reading-return" href="/">← 返回四扇窗口</a><div class="comic-sidebar-issue comic-only" aria-hidden="true"><b>04</b><span>NOTES</span></div><div class="reading-art" aria-hidden="true"><svg viewBox="1196 210 291 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><clipPath id="scene-reading-notes"><rect x="1200" y="214" width="284" height="463"/></clipPath></defs><image href="/images/window-cards/notes-quiet.png" width="1536" height="1024" clip-path="url(#scene-reading-notes)"/></svg><span class="glow"></span><span class="paper-stars">✦ · ✧</span><svg class="comic-art comic-only" viewBox="1158 245 344 570" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><image href="/images/comic/reference.png" width="1536" height="1024"/></svg></div><p class="reading-label">04 / NOTES</p><nav class="reading-toc" aria-label="本页目录" hidden><p>本页目录</p><div data-toc></div></nav><nav class="reading-sections" aria-label="其他栏目"><a href="/about/" >01 关于我</a><a href="/school/" >02 学校与科研</a><a href="/work/" >03 职业与实践</a><a href="/notes/" aria-current="page">04 思考与记录</a></nav></aside><div class="reading-content"><p class="reading-kicker">04 / NOTES</p><article class="article-page">
+  <header class="article-header">
+    <a class="back-link" href="/notes/">← 返回全部记录</a>
+    <p class="eyebrow">思考</p>
+    <h1>随笔 · 2026.9.15</h1>
+    <p class="page-summary">从文本预测出发，尝试宏观理解 Transformer、参数矩阵与自注意力，并把它放回神经网络的一般学习框架中。</p>
+    <div class="article-meta">
+      <time datetime="2026-09-15">2026 年 9 月 15 日</time>
+      <span>4 分钟阅读</span>
+    </div>
+  </header>
+  <div class="prose article-body"><h2>关于 Transformer</h2>
+<p>这个“变压器”算是老朋友了，但我一直没有系统地认识过它。昨天在 B 站看了别人的介绍，有了些认识，又和 GPT 讨论了一下，想做些记录。</p>
+<p>我并不是想在这里剖析 Transformer 的内部结构来学习，以我目前的能力，也未必解释得清楚。我感觉更重要的是先对它有一个宏观的把握和理解，方便后续定位细节。</p>
+<h3>Transformer 本身</h3>
+<p>我还是以 GPT 这种大语言模型来理解 Transformer，但 Transformer 本质上是一种更抽象的结构。这种结构放到 GPT 上，就对应了具体的对话任务：已有 token → 预测下一个 token。<strong>GPT 本质上是建立在 Transformer 上的概率序列预测模型。</strong></p>
+<p><img alt="LLM 作为文本预测器的流程示意图" src="/images/notes/essay-2026-09-15/text-prediction.png"></p>
+<p>文本先被映射为高维向量。预训练通过海量文本，学习出 Transformer 中的大量参数矩阵。这些参数定义了一个高维非线性函数。面对具体输入时，Self-Attention 会动态计算不同 token 之间的关系，并不断更新它们的上下文表示。最终，模型将当前位置的隐藏表示映射为词表中所有 token 的分数，再通过 softmax 得到下一个 token 的概率分布。</p>
+<p>这算是一个更学术的小总结，但我想用一种更启发式的方式去理解。</p>
+<p>从宏观视角来看，模型训练通过海量预测错误，不断反向传播，把整套矩阵参数调整到一个能很好地预测人类文本的位置。LLM 并不是直接学习世界，而是学习“人类关于世界留下的记录”，但语言预测任务迫使模型压缩出一个关于世界结构的内部表示，也就是一种以文本描述为基础绘制的世界模型。</p>
+<p>对于这种“世界模型”，我倾向于把它和 Transformer 的参数矩阵相对应。参数矩阵对应着高维向量空间：我们把文本向量化，让参数化变换不断“理解”，让自注意力机制分析和“定位”。这种理解与定位的不断累积，让文本最终在向量空间里得到正确的状态演化，对应着在世界模型里正确的理解。</p>
+<p><strong>GPT 的学术化总结：</strong></p>
+<blockquote>
+<p>LLM 的预训练过程，是利用人类文本不断调整参数，从而构造一个关于人类所记录世界的高维参数化模型；推理时，输入文本被转化为高维表示，并在多层 Transformer 中通过 Attention 的关系定位和参数化变换不断更新自身状态，形成一条表示演化轨迹。所谓模型对当前文本的“理解”，可以抽象为这条轨迹最终逐层演化到一个能够正确表达当前上下文、并对后续 token 做出准确预测的内部状态。</p>
+</blockquote>
+<p><img alt="LLM 从人类文本记录中形成内部“世界模型”的理解示意图" src="/images/notes/essay-2026-09-15/world-model.png"></p>
+<h3>神经网络里的 Transformer</h3>
+<p>对于神经网络的通用抽象结构，我是这样理解的：量化基本单元，量化基本单元之间的联系，把“基本单元 + 联系”作为输入，设计映射函数得到输出；再把输出和结果比较得到 loss，通过 loss 反向传播调整映射，得到合适的映射，也就是模型。</p>
+<p><img alt="深度学习的一般学习框架及 Transformer 在其中的位置" src="/images/notes/essay-2026-09-15/learning-framework.png"></p>
+<p>那么，Transformer 在这套框架里的特色是什么呢？比如，CNN 中一个像素主要和附近像素交互；RNN 的当前时间步主要接收前一个时间步的信息；GNN 的节点主要和图中已有边连接的邻居交互。而 Transformer 仿佛会说：“当前这个 token 到底该关注谁，我先不完全写死，让模型根据当前输入自己算。”</p>
+<p>提到 Transformer 时，我们经常会提到 Self-Attention，因为 Transformer 最大的特色就在这里。Self-Attention 实际上同时做两件事：<strong>先判断谁重要，再按重要程度把信息拿过来。</strong>也就是<strong>关系建模 + 信息聚合</strong>。</p>
+<p>Transformer 的核心角色可以总结为：<strong>它是一种高度通用的动态关系建模和信息路由架构。</strong></p></div>
+  <div class="tag-list" aria-label="文章标签">
+<span># Transformer</span><span># 大语言模型</span><span># 学习记录</span>  </div>
+</article>
+<div class="reading-end"><a href="#main">↑ 回到开头</a><a href="/">返回总览 ↗</a></div></div></div>
+</main>
+
+    <footer class="site-footer">
+      <div>
+        <p class="footer-name">张浩厅 · Haoting Zhang</p>
+        <p>一份持续更新的个人数字档案。</p>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026</span>
+      </div>
+    </footer>
+    <script src="/site.js?v=20260905-night-archive-1" defer></script>
+<script src="/reading.js?v=1" defer></script>  </body>
+</html>
