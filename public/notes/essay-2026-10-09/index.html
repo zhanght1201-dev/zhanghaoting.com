@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN" data-ui="comic">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1218" />
+    <title>随笔 · 2026.10.9 · 张浩厅</title>
+    <meta name="description" content="重看一段关于自然常数 e 的讲解，从视频作者对“自然”的定义，想到自治微分方程、复利与指数规律，也想到人在变化中如何保持自己的规则。" />
+    <link rel="canonical" href="https://zhanghaoting.com/notes/essay-2026-10-09/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css?v=20260905-night-archive-1" />
+    <link rel="stylesheet" href="/archive.css?v=20260905-night-archive-1" />
+<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1"><script src="/ui-mode.js?v=comic1"></script>
+<link rel="stylesheet" href="/comic-ui.css?v=comic1">
+<link rel="stylesheet" href="/comic-transition.css?v=mobile2">
+<script src="/comic-transition.js?v=mobile2" defer></script>    <meta property="og:type" content="article" />
+    <meta property="og:title" content="随笔 · 2026.10.9 · 张浩厅" />
+    <meta property="og:description" content="重看一段关于自然常数 e 的讲解，从视频作者对“自然”的定义，想到自治微分方程、复利与指数规律，也想到人在变化中如何保持自己的规则。" />
+    <meta property="og:url" content="https://zhanghaoting.com/notes/essay-2026-10-09/" />
+  </head>
+  <body class="is-inner" data-section="notes">
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true">ZH</span>
+        <span class="brand-name">/ 张浩厅</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>菜单 <span aria-hidden="true">☰</span></button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航">
+        <a href="/" >首页</a>
+        <a href="/about/" >关于</a>
+        <a href="/school/" >学校与科研</a>
+        <a href="/work/" >职业与实践</a>
+        <a href="/notes/" aria-current="page">思考与记录</a>
+      </nav>
+<div class="ui-switch" role="group" aria-label="显示风格" hidden><button type="button" data-ui-mode="pixel" aria-pressed="false">像素</button><button type="button" data-ui-mode="comic" aria-pressed="true">漫画</button></div>    </header>
+
+    <main id="main" tabindex="-1"><div class="reading-city" aria-hidden="true"></div>
+<div class="reading-layout" data-reading data-comic-section="notes"><aside class="reading-aside"><a class="reading-return" href="/">← 返回四扇窗口</a><div class="comic-sidebar-issue comic-only" aria-hidden="true"><b>04</b><span>NOTES</span></div><div class="reading-art" aria-hidden="true"><svg viewBox="1196 210 291 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><clipPath id="scene-reading-notes"><rect x="1200" y="214" width="284" height="463"/></clipPath></defs><image href="/images/window-cards/notes-quiet.png" width="1536" height="1024" clip-path="url(#scene-reading-notes)"/></svg><span class="glow"></span><span class="paper-stars">✦ · ✧</span><svg class="comic-art comic-only" viewBox="1158 245 344 570" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><image href="/images/comic/reference.png" width="1536" height="1024"/></svg></div><p class="reading-label">04 / NOTES</p><nav class="reading-toc" aria-label="本页目录" hidden><p>本页目录</p><div data-toc></div></nav><nav class="reading-sections" aria-label="其他栏目"><a href="/about/" >01 关于我</a><a href="/school/" >02 学校与科研</a><a href="/work/" >03 职业与实践</a><a href="/notes/" aria-current="page">04 思考与记录</a></nav></aside><div class="reading-content"><p class="reading-kicker">04 / NOTES</p><article class="article-page">
+  <header class="article-header">
+    <a class="back-link" href="/notes/">← 返回全部记录</a>
+    <p class="eyebrow">思考</p>
+    <h1>随笔 · 2026.10.9</h1>
+    <p class="page-summary">重看一段关于自然常数 e 的讲解，从视频作者对“自然”的定义，想到自治微分方程、复利与指数规律，也想到人在变化中如何保持自己的规则。</p>
+    <div class="article-meta">
+      <time datetime="2026-10-09">2026 年 10 月 9 日</time>
+      <span>5 分钟阅读</span>
+    </div>
+  </header>
+  <div class="prose article-body"><h2>关于自然与 e</h2>
+<h3>作者的观点</h3>
+<p>今天再次看了一遍 B 站上关于 e 的“自然”的讲解，给了我许多思考和启发，想记录一下。</p>
+<p><a href="https://www.bilibili.com/video/BV12ueX62E8S?t=208.5">视频链接</a></p>
+<p>既然说到自然，作者给出的定义是：自身的状态由自己决定，也就是自己决定自己的样子，不受外力影响。换句话说，自身的状态变化只和自身有关，能量的变化也由自身决定。用物理语言描述，就提到了第一个式子：</p>
+<p><code>dE/dt = 自身因素（能量）</code></p>
+<p>如果这个式子成立，也就是说，该物体的能量在不断增长，那增长的能量从哪里来？按照这里的描述，能量只能从自身来。所以，我们把 E 用质能方程描述：</p>
+<p><img alt="dE/dt = d(mc²)/dt = c² dm/dt = E × (1/m) × dm/dt" src="/images/notes/essay-2026-10-09/mass-energy.svg"></p>
+<p>把后面的部分用 K 代替：</p>
+<p><img alt="K = (1/m) × dm/dt" src="/images/notes/essay-2026-10-09/relative-rate.svg"></p>
+<p>就得到了：</p>
+<p><img alt="dE/dt = KE" src="/images/notes/essay-2026-10-09/energy-rate.svg"></p>
+<p>检查一下量纲，左边是焦耳每秒，右边是每克 × 克每秒 × 焦耳，也就是焦耳每秒。K 的量纲是每秒。总结下来，作者通过质能方程辅助推导：如果能量变化只和自身有关，那么能量的变化来自自身的能量，也就是质量亏损，能量每时每刻都按照自身增长。</p>
+<p>有人说，根本就没有这种增长。作者的回应是：“其实你只是怕了。”</p>
+<p><img alt="视频中列举的种群增长、化学反应与衰变等指数变化过程" src="/images/notes/essay-2026-10-09/exponential-processes.png"></p>
+<p>再拿核裂变反应为例。作者提到，1986 年切尔诺贝利事故是因为核裂变反应从临界进入瞬发超临界，导致无法进行控制。目前，对核裂变的控制主要还是维持在临界状态。瞬发超临界意味着瞬发中子的影响扩大，如下图中的公式所示，这个反应方程接近了作者对“自然”的描述。按照视频的论述，结果也正如“自然”所言，我们无法对其进行状态改变。</p>
+<p><img alt="视频中的中子密度变化方程及各项标注" src="/images/notes/essay-2026-10-09/neutron-density.png"></p>
+<p>再来看这个表示“自然”的式子：</p>
+<p><img alt="dy/dt = Ky" src="/images/notes/essay-2026-10-09/exponential-rate.svg"></p>
+<p>把 y 求解出来，得到：</p>
+<p><img alt="y = y₀ × e^(kt)" src="/images/notes/essay-2026-10-09/exponential-solution.svg"></p>
+<p>这里面唯一不变的就是 e，e 也成了自然常数。</p>
+<h3>我的思考</h3>
+<p>作者在论述和证明的过程中加入了一些哲学观点，想通过这些观点辅助论证。一开始，我确实感觉很震撼，但仔细想想，有些地方还是有些牵强。我和 GPT 讨论了许多衍生的想法，这里主要谈谈我的收获。</p>
+<p>首先是作者对“自然”的定义。我还是沿用他的论述：自身的状态变化只和自身有关。如果从能量的角度来看，就是：</p>
+<p><img alt="dE/dt = f(E)" src="/images/notes/essay-2026-10-09/autonomous.svg"></p>
+<p>我更喜欢这个表述：我们的能量变化率，也就是功率，由我们当前的能量决定。GPT 把它称作自治微分方程。通过之前的论证，这个式子加上质能方程，可以推出前面的式子：</p>
+<p><img alt="dE/dt = KE" src="/images/notes/essay-2026-10-09/energy-rate.svg"></p>
+<p>我一开始的疑惑是，这种等价转换看起来像把复杂函数变成了线性函数。但后来求证发现，K 不一定是常数，它是单位质量在单位时间下的质量变化，也就是单位质量的质量变化率。如果 K 是常数，就满足前面所说的关于核裂变的能量变化，也就是一种满足指数规律的动力学系统。</p>
+<p>进而，在 K 是常数的情况下，我们得出的方程只是“自然”的一种。它确实是自身的状态变化只和自身有关，但这种变化依旧需要满足一定的规律，这里是一种指数规律。</p>
+<p>提到指数规律，最容易想到钱的复利效应。我们都知道，钱可以计息，实现钱生钱。这个过程满足指数规律，因为单位钱在单位时间内的变化量恒定，也就是单位钱的增长率一定。整个过程就是钱生钱，生出来的钱像机器生产一样，可以瞬间进入“工作”，继续生产钱。</p>
+<p>最终，金额和时间的关系就遵循指数函数。那么，e 又特殊在哪里呢？这就涉及指数函数底数的区别：底数影响着“生钱”这一过程的增长率。</p>
+<p>举个具体的例子辅助理解。如果我们存 100 块，明天涨到了 200 块，那钱就满足：</p>
+<p><img alt="y = 100 × e^(ln 2 × x) = 100 × 2^x" src="/images/notes/essay-2026-10-09/doubling.svg"></p>
+<p>也就是单位钱在单位时间内的变化量是 ln 2。那么，自然常数 e 的特殊性，就是单位钱在单位时间内的变化量是 1。</p>
+<p>整体看下来，这种指数规律给我的感觉是有一种独立性：它们的变化和积累只受自身影响，不管是整体变化率还是部分变化率，都是恒定的。它们独立于时间，时间只是衡量尺，本身不受时间影响。</p>
+<p>当然，它只是自治微分方程的一种特殊情况。整个自治微分方程的基础，就是自身的状态变化只和自身有关，所以肯定是独立于时间的。</p>
+<p>如果这真的是“自然”，那么人想要达到自然，也要做到自身的状态变化只和自身有关。具体来说，至少要独立于时间：不管时间过去多久，都遵守某些规则，遵守自己的 f(E)。</p>
+<p>指数规律如果从总金额来看，增长速度是不断加快的。也就是说，从整个个体的角度看，它始终在根据自己已有的状态进行更新，又在这种不断更新的状态下，严格维持着一种不变的规则。</p>
+<p>另外，这种“自然”的定义，我感觉更多是在说“做自己”。但如果与外界交互，可能这种增长可以达到平方律。目前，有些分子之间的交互作用，好像就可以达到这种增长。</p></div>
+  <div class="tag-list" aria-label="文章标签">
+<span># 自然与数学</span><span># 指数规律</span><span># 自我认知</span>  </div>
+</article>
+<div class="reading-end"><a href="#main">↑ 回到开头</a><a href="/">返回总览 ↗</a></div></div></div>
+</main>
+
+    <footer class="site-footer">
+      <div>
+        <p class="footer-name">张浩厅 · Haoting Zhang</p>
+        <p>一份持续更新的个人数字档案。</p>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026</span>
+      </div>
+    </footer>
+    <script src="/site.js?v=20260905-night-archive-1" defer></script>
+<script src="/reading.js?v=1" defer></script>  </body>
+</html>
