@@ -1,4 +1,6 @@
 {% extends "reading-base.html" %}
+{% block extra_styles %}{{ super() }}{% if interactions_enabled %}<link rel="stylesheet" href="/note-like-counts.css?v=1">{% endif %}{% endblock %}
+{% block extra_scripts %}{{ super() }}{% if interactions_enabled %}<script src="/note-like-counts.js?v=1" defer></script>{% endif %}{% endblock %}
 {% block reading_content %}
 <header class="page-hero page-hero-wide">
   <p class="eyebrow">NOTES</p>

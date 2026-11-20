@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import subprocess
+import json
 import sys
 import unittest
 from build import CONTENT, read_markdown
@@ -120,6 +121,35 @@ class BuiltSiteTests(unittest.TestCase):
         expected += sum(not p['draft'] for p in notes) + int(any(not p['draft'] for p in notes))
         self.assertEqual(len(urls), expected)
         self.assertFalse(any("reading-template" in url for url in urls))
+
+    def test_interactions_only_use_public_notes_and_preview_cannot_change_api(self) -> None:
+        manifest = ROOT / 'lib' / 'public-notes.js'
+        production_manifest = manifest.read_bytes()
+        production_page = (PUBLIC / 'notes' / 'why-this-site' / 'index.html').read_bytes()
+        slugs = json.loads(production_manifest.decode().split(' = ', 1)[1].strip().rstrip(';'))
+        notes = [read_markdown(p) for p in (CONTENT / 'notes').glob('*.md')]
+        self.assertEqual(slugs, sorted(n['slug'] for n in notes if not n['draft']))
+        routes = json.loads((PUBLIC / '_routes.json').read_text(encoding='utf-8'))
+        self.assertEqual(routes['include'], ['/api/notes/*', '/api/note-likes'])
+        self.assertIn(b'/note-interactions.js', production_page)
+        self.assertNotIn('/note-interactions.js', (PUBLIC / 'index.html').read_text(encoding='utf-8'))
+        home = (PUBLIC / 'index.html').read_text(encoding='utf-8')
+        listing = (PUBLIC / 'notes' / 'index.html').read_text(encoding='utf-8')
+        self.assertEqual(listing.count('data-note-like-count='), len(slugs))
+        self.assertEqual(home.count('data-note-like-count='), min(3, len(slugs)))
+        self.assertIn(b'data-note-like-count="why-this-site"', production_page)
+        for mode in ('--preview', '--interaction-preview', '--pixel-preview'):
+            subprocess.run([sys.executable, 'build.py', mode], cwd=ROOT, check=True, capture_output=True)
+            preview_dir = { '--preview': '.preview', '--interaction-preview': '.interaction-preview',
+                            '--pixel-preview': '.pixel-preview' }[mode]
+            for page in (ROOT / preview_dir / 'notes').rglob('index.html'):
+                preview_html = page.read_text(encoding='utf-8')
+                self.assertNotIn('/note-interactions.js', preview_html)
+                self.assertNotIn('/note-like-counts.js', preview_html)
+                self.assertNotIn('data-note-like-count=', preview_html)
+            self.assertNotIn('/note-like-counts.js', (ROOT / preview_dir / 'index.html').read_text(encoding='utf-8'))
+            self.assertEqual(manifest.read_bytes(), production_manifest)
+            self.assertEqual((PUBLIC / 'notes' / 'why-this-site' / 'index.html').read_bytes(), production_page)
 
 
 if __name__ == "__main__":

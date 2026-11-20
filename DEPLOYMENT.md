@@ -24,6 +24,12 @@ git push
 
 Cloudflare Pages 会在推送后自动发布新的 `public/`。
 
+## 随笔互动 API
+
+点赞与留言使用仓库根 `functions/` 和 Cloudflare D1，首次发布前必须创建数据库、执行迁移并在现有 Pages 项目绑定 `VISITOR_DB`，再重新部署。详细步骤、本地模拟和留言维护见 [访客互动说明](docs/visitor-interactions.md)。不要使用 `wrangler.local.jsonc` 中的本地占位 ID 配置线上；预览环境不得连接生产数据库。
+
+普通构建同时更新 `lib/public-notes.js` 和 `public/_routes.json`，发布时需逐项包含这些生成物及实际修改的 `functions/`、`lib/`、`migrations/`、模板和静态资源。构建命令仍留空，输出目录仍为 `public`；Pages 会从根目录编译 Functions。推送成功后还需验证 API 与数据库实际可用。
+
 ## 域名
 
 Pages 项目确认可访问后，在 `Custom domains` 中添加：

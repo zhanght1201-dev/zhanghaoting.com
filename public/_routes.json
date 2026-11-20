@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "include": [
+    "/api/notes/*",
+    "/api/note-likes"
+  ],
+  "exclude": []
+}

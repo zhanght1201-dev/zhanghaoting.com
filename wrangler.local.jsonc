@@ -1,0 +1,16 @@
+{
+  // Local simulator only. Production bindings remain in the Pages dashboard.
+  // This filename is intentional: Cloudflare must not deploy this placeholder.
+  "name": "zhanghaoting-visitor-local",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-11-20",
+  "d1_databases": [
+    {
+      "binding": "VISITOR_DB",
+      "database_name": "visitor-interactions-local",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "preview_database_id": "VISITOR_DB",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

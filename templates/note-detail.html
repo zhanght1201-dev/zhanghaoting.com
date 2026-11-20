@@ -1,5 +1,7 @@
 {% extends "reading-base.html" %}
 {% block og_type %}article{% endblock %}
+{% block extra_styles %}{{ super() }}{% if interactions_enabled %}<link rel="stylesheet" href="/note-interactions.css?v=1"><link rel="stylesheet" href="/note-like-counts.css?v=1">{% endif %}{% endblock %}
+{% block extra_scripts %}{{ super() }}{% if interactions_enabled %}<script src="/note-like-counts.js?v=1" defer></script><script src="/note-interactions.js?v=2" defer></script>{% endif %}{% endblock %}
 {% block reading_content %}
 <article class="article-page">
   <header class="article-header">
@@ -10,6 +12,7 @@
     <div class="article-meta">
       <time datetime="{{ note.publishedAtIso }}">{{ note.publishedAtDisplay }}</time>
       <span>{{ note.readingTime }} 分钟阅读</span>
+      {% if interactions_enabled %}{% with like_slug=note.slug %}{% include "partials/note-like-count.html" %}{% endwith %}{% endif %}
       {% if note.updatedAt %}<span>修订于 {{ note.updatedAt | display_date }}</span>{% endif %}
     </div>
   </header>
@@ -27,5 +30,6 @@
   </div>
   {% endif %}
 </article>
+{% if interactions_enabled %}{% include "partials/note-interactions.html" %}{% endif %}
 {% endblock %}
 

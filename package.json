@@ -1,0 +1,16 @@
+{
+  "name": "zhanghaoting-visitor-interactions",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "dev": "wrangler pages dev public --d1 VISITOR_DB --compatibility-date 2026-11-20 --ip 127.0.0.1 --port 8788",
+    "db:local": "wrangler d1 migrations apply visitor-interactions-local --local --config wrangler.local.jsonc",
+    "test": "node --test tests/visitor-api.test.mjs tests/note-like-counts.test.mjs",
+    "test:browser": "node tests/verify-interactions.cjs && node tests/verify-like-counts.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65.1",
+    "wrangler": "4.165.0"
+  }
+}

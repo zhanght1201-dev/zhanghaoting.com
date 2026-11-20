@@ -11,7 +11,7 @@
     <link rel="preload" href="/fonts/fusion-pixel-12px-proportional-zh-hans.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles.css?v=20260905-night-archive-1" />
     <link rel="stylesheet" href="/archive.css?v=20260905-night-archive-1" />
-<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1"><script src="/ui-mode.js?v=comic1"></script>
+<link rel="stylesheet" href="/reading.css?v=1"><link rel="stylesheet" href="/neon-shared.css?v=rain1"><link rel="stylesheet" href="/note-interactions.css?v=1"><link rel="stylesheet" href="/note-like-counts.css?v=1"><script src="/ui-mode.js?v=comic1"></script>
 <link rel="stylesheet" href="/comic-ui.css?v=comic1">
 <link rel="stylesheet" href="/comic-transition.css?v=mobile2">
 <script src="/comic-transition.js?v=mobile2" defer></script>    <meta property="og:type" content="article" />
@@ -46,7 +46,7 @@
     <div class="article-meta">
       <time datetime="2026-09-11">2026 年 9 月 11 日</time>
       <span>5 分钟阅读</span>
-    </div>
+<span class="note-like-count" data-note-like-count="essay-2026-09-11" aria-label="点赞数尚未加载" title="点赞数尚未加载">♡ —</span>    </div>
   </header>
   <div class="prose article-body"><h2>关于对 AI 的认知</h2>
 <p>之前把AI比作白纸，有一些不妥，这个比拟更多是想强调白纸的可塑性方面，这个角度是合适的。但不妥的点是白纸的“白”的空白意象。这个空白一定程度上忽视了AI的基础能力，那么LLM的基础能力具体是什么呢，如何描述或者是理解LLM呢？这对我们之后的使用和定位很重要。在直观理解层面，LLM本身具有大量的通识知识，是形成对世界中事物、关系、规律的内部表征，也就是某种世界模型。我之前的理解是它拥有更像类似于人三观上“世界观”的属性，也就是回答怎么看世界的问题，但世界观相较于世界模型是包含着个体对世界的解释的（世界模型+解释框架），更像观点一点。LLM则是只描述不解释，但同时也知道各种观点对世界模型的解释的描述。<strong>LLM 的基础不是一个固定世界观，而是对大量世界事实、关系和规律形成了世界模型，并进一步学习了人类基于这些世界模型形成的多种解释框架和世界观。世界模型更偏描述性，而不是价值性；但它仍然不是纯粹客观世界本身，而是“人类记录过的世界”的统计抽象。</strong></p>
@@ -91,7 +91,32 @@
   <div class="tag-list" aria-label="文章标签">
 <span># AI 与 Agent</span><span># 穷查理宝典</span><span># 阅读与自我认知</span>  </div>
 </article>
-<div class="reading-end"><a href="#main">↑ 回到开头</a><a href="/">返回总览 ↗</a></div></div></div>
+<section class="note-interactions" data-note-interactions data-slug="essay-2026-09-11" aria-labelledby="interaction-title">
+  <div class="interaction-heading">
+    <div><p class="interaction-kicker">YOUR THOUGHTS</p><h2 id="interaction-title">留下你的想法</h2></div>
+    <button class="interaction-like" type="button" data-like aria-pressed="false" disabled>♡ 喜欢 <span data-like-count>—</span></button>
+  </div>
+  <p class="interaction-status" data-status role="status" aria-live="polite">互动内容暂时不可用。</p>
+  <button class="interaction-retry" type="button" data-retry hidden>重新加载</button>
+  <noscript><p>开启 JavaScript 后即可查看留言和点赞。</p></noscript>
+  <div class="interaction-comments">
+    <h3>留言 <span data-comment-count></span></h3>
+    <p data-empty hidden>还没有留言，欢迎留下第一句话。</p>
+    <ol class="interaction-list" data-comments aria-label="访客留言"></ol>
+    <button class="interaction-more" type="button" data-more hidden>查看更多</button>
+    <p data-more-status role="status" aria-live="polite"></p>
+  </div>
+  <form class="interaction-form" data-form>
+    <p>留言将公开展示，请勿填写隐私信息。</p>
+    <label for="interaction-nickname">昵称 <span>（最多 30 字）</span></label>
+    <input id="interaction-nickname" name="nickname" type="text" maxlength="30" autocomplete="nickname" required disabled>
+    <label for="interaction-body">留言 <span>（最多 1000 字）</span></label>
+    <textarea id="interaction-body" name="body" maxlength="1000" rows="4" required disabled></textarea>
+    <div class="interaction-trap" aria-hidden="true"><label>网址<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <button type="submit" data-submit disabled>发表留言</button>
+    <p data-form-status role="status" aria-live="polite"></p>
+  </form>
+</section><div class="reading-end"><a href="#main">↑ 回到开头</a><a href="/">返回总览 ↗</a></div></div></div>
 </main>
 
     <footer class="site-footer">
@@ -104,5 +129,5 @@
       </div>
     </footer>
     <script src="/site.js?v=20260905-night-archive-1" defer></script>
-<script src="/reading.js?v=1" defer></script>  </body>
+<script src="/reading.js?v=1" defer></script><script src="/note-like-counts.js?v=1" defer></script><script src="/note-interactions.js?v=2" defer></script>  </body>
 </html>

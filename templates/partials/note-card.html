@@ -12,6 +12,6 @@
     </div>
     {% endif %}
   </div>
-  <span class="read-time">{{ note.readingTime }} min</span>
+  <div class="note-row-stats"><span class="read-time">{{ note.readingTime }} min</span>{% if interactions_enabled %}{% with like_slug=note.slug %}{% include "partials/note-like-count.html" %}{% endwith %}{% endif %}</div>
 </article>
 

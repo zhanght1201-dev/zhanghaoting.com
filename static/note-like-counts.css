@@ -1,0 +1,7 @@
+.note-like-count{display:inline-block;white-space:nowrap;color:#d9b77d;font:500 12px/1.7 system-ui,sans-serif;letter-spacing:0;font-variant-numeric:tabular-nums}
+.note-row-stats{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.summary-entry-title{min-width:0;overflow-wrap:anywhere}.summary-entry-meta{display:inline-flex;align-items:center;gap:10px;flex-shrink:0}.summary .copy li a{gap:12px}
+html[data-ui=comic] .note-like-count{color:#27696b}
+html[data-ui=comic] .reading-content .note-row-stats{flex-direction:row;align-items:center;justify-content:space-between;margin-top:14px;gap:16px}
+html[data-ui=comic] .reading-content .note-row-stats .read-time{margin:0}
+@media(max-width:700px){.note-row-stats{grid-column:2;grid-row:2}}

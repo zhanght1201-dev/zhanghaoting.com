@@ -1,4 +1,12 @@
 __pycache__/
+node_modules/
+.wrangler/
+.dev.vars
+.dev.vars.*
+.preview/
+.interaction-preview/
+.pixel-preview/
+artifacts/
 *.py[cod]
 .pytest_cache/
 

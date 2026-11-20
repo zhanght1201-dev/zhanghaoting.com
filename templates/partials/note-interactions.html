@@ -1,0 +1,26 @@
+<section class="note-interactions" data-note-interactions data-slug="{{ note.slug }}" aria-labelledby="interaction-title">
+  <div class="interaction-heading">
+    <div><p class="interaction-kicker">YOUR THOUGHTS</p><h2 id="interaction-title">留下你的想法</h2></div>
+    <button class="interaction-like" type="button" data-like aria-pressed="false" disabled>♡ 喜欢 <span data-like-count>—</span></button>
+  </div>
+  <p class="interaction-status" data-status role="status" aria-live="polite">互动内容暂时不可用。</p>
+  <button class="interaction-retry" type="button" data-retry hidden>重新加载</button>
+  <noscript><p>开启 JavaScript 后即可查看留言和点赞。</p></noscript>
+  <div class="interaction-comments">
+    <h3>留言 <span data-comment-count></span></h3>
+    <p data-empty hidden>还没有留言，欢迎留下第一句话。</p>
+    <ol class="interaction-list" data-comments aria-label="访客留言"></ol>
+    <button class="interaction-more" type="button" data-more hidden>查看更多</button>
+    <p data-more-status role="status" aria-live="polite"></p>
+  </div>
+  <form class="interaction-form" data-form>
+    <p>留言将公开展示，请勿填写隐私信息。</p>
+    <label for="interaction-nickname">昵称 <span>（最多 30 字）</span></label>
+    <input id="interaction-nickname" name="nickname" type="text" maxlength="30" autocomplete="nickname" required disabled>
+    <label for="interaction-body">留言 <span>（最多 1000 字）</span></label>
+    <textarea id="interaction-body" name="body" maxlength="1000" rows="4" required disabled></textarea>
+    <div class="interaction-trap" aria-hidden="true"><label>网址<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <button type="submit" data-submit disabled>发表留言</button>
+    <p data-form-status role="status" aria-live="polite"></p>
+  </form>
+</section>
